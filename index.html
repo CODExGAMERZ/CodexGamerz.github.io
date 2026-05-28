@@ -155,7 +155,7 @@
 
         <div class="stats-strip stagger-children">
           <div class="stat-card reveal">
-            <div class="stat-number" data-count="9">0</div>
+            <div class="stat-number" data-count="10">0</div>
             <div class="stat-label">Projects Built</div>
           </div>
           <div class="stat-card reveal">
@@ -182,277 +182,163 @@
         </p>
       </div>
 
-      <!-- Filter pills -->
-      <div class="filter-pills reveal reveal-delay-2">
-        <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="ai">AI / ML</button>
-        <button class="filter-pill" data-filter="devtool">Dev Tools</button>
-        <button class="filter-pill" data-filter="web">Web Apps</button>
-        <button class="filter-pill" data-filter="cli">CLI</button>
-      </div>
+      <!-- Projects Carousel -->
+      <div class="carousel reveal reveal-delay-3" id="projectsCarousel" data-autoplay="5000">
+        <div class="carousel__viewport">
+          <div class="carousel__track">
 
-      <!-- Grid -->
-      <div class="projects-grid stagger-children" id="projectsGrid">
+            <!-- PAGE 1 -->
+            <div class="carousel__page carousel__page--3">
+              <!-- 1. Hybrid AI Chatbot -->
+              <div class="project-card" data-category="ai">
+                <div class="project-card__icon">🤖</div>
+                <h3 class="project-card__title">Hybrid AI Chatbot</h3>
+                <p class="project-card__desc">A production-oriented AI assistant with semantic memory, self-learning pipeline, and custom LLM teacher fallback.</p>
+                <ul class="project-card__features">
+                  <li>FAISS Semantic Memory → Local KB → Intent Classifier → LLM Fallback</li>
+                  <li>Self-improving loop: clusters inputs, generates, retrains locally</li>
+                  <li>Hybrid architecture minimizing external API costs</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">FAISS</span><span class="tag">NLP</span><span class="tag">ML</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/chatbot-ai" target="_blank" rel="noopener" class="project-link" id="link-chatbot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
 
-        <!-- 1. Hybrid AI Chatbot -->
-        <div class="project-card reveal" data-category="ai">
-          <div class="project-card__icon">🤖</div>
-          <h3 class="project-card__title">Hybrid AI Chatbot</h3>
-          <p class="project-card__desc">
-            A production-oriented AI assistant with semantic memory, self-learning pipeline,
-            and custom LLM teacher fallback.
-          </p>
-          <ul class="project-card__features">
-            <li>FAISS Semantic Memory → Local KB → Intent Classifier → LLM Fallback</li>
-            <li>Self-improving loop: clusters inputs, generates, retrains locally</li>
-            <li>Hybrid architecture minimizing external API costs</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">Python</span>
-            <span class="tag">TensorFlow</span>
-            <span class="tag">FAISS</span>
-            <span class="tag">NLP</span>
-            <span class="tag">ML</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/chatbot-ai" target="_blank" rel="noopener" class="project-link" id="link-chatbot">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
+              <!-- 2. Code Autocomplete LLM -->
+              <div class="project-card" data-category="ai">
+                <div class="project-card__icon">🧬</div>
+                <h3 class="project-card__title">Code Autocomplete LLM</h3>
+                <p class="project-card__desc">A GPT-style autoregressive Transformer trained from scratch for Python code autocompletion.</p>
+                <ul class="project-card__features">
+                  <li>True GPT Decoder with causal self-attention &amp; masking</li>
+                  <li>KV-Cache for O(1) step incremental decoding</li>
+                  <li>Resume-safe checkpoint system with interrupt recovery</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">PyTorch</span><span class="tag">Tokenizers</span><span class="tag">Deep Learning</span><span class="tag">Transformers</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Code-AutoComplete-LLM" target="_blank" rel="noopener" class="project-link" id="link-autocomplete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
+              <!-- 3. LLM Advisor -->
+              <div class="project-card" data-category="web">
+                <div class="project-card__icon">⚡</div>
+                <h3 class="project-card__title">llm-advisor.dev</h3>
+                <p class="project-card__desc">A precision advisor for running LLMs on local consumer rigs, workstations, servers, and Apple Silicon.</p>
+                <ul class="project-card__features">
+                  <li>Dynamic VRAM breakdown: Weights vs. KV Cache vs. Overhead</li>
+                  <li>Multi-mode: Model→Specs, Specs→Model, Custom Model</li>
+                  <li>Apple Silicon unified memory with command guides</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">ESM</span><span class="tag">Math Estimation</span><span class="tag">Web Design</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/llm-advisor" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://llm-advisor-ai.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
+              </div>
+            </div>
+            <!-- PAGE 2 -->
+            <div class="carousel__page carousel__page--3">
+              <!-- 4. C-Code-Assistant -->
+              <div class="project-card" data-category="devtool">
+                <div class="project-card__icon">🛠️</div>
+                <h3 class="project-card__title">C-Code-Assistant</h3>
+                <p class="project-card__desc">Fully local, AI-powered C programming IDE with code completions, linting, error fixing, and execution.</p>
+                <ul class="project-card__features">
+                  <li>In-browser runners with GCC sub-process execution</li>
+                  <li>Live gutter-marker linting via cppcheck/gcc</li>
+                  <li>Quality-Retry Gate: LLM self-corrects if validations fail</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">JavaScript</span><span class="tag">Ollama</span><span class="tag">GCC</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/C-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-c-assistant"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
+              <!-- 5. Python-Code-Assistant -->
+              <div class="project-card" data-category="devtool">
+                <div class="project-card__icon">🐍</div>
+                <h3 class="project-card__title">Python-Code-Assistant</h3>
+                <p class="project-card__desc">Fully local, AI-powered Python IDE with code completions, linting, error fixing, and execution.</p>
+                <ul class="project-card__features">
+                  <li>In-browser Python sub-process execution</li>
+                  <li>Live gutter-marker linting via flake8/py_compile</li>
+                  <li>Same-Origin Flask proxy for Ollama traffic</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">JavaScript</span><span class="tag">Ollama</span><span class="tag">flake8</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Python-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-py-assistant"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
+
+              <!-- 6. Kryptonix -->
+              <div class="project-card" data-category="web">
+                <div class="project-card__icon">💎</div>
+                <h3 class="project-card__title">Kryptonix</h3>
+                <p class="project-card__desc">A premium dark-first obsidian glassmorphism crypto dashboard with dual-level caching and resilient fallbacks.</p>
+                <ul class="project-card__features">
+                  <li>Live markets portal with exchange tracking &amp; growth categories</li>
+                  <li>Double caching with 5-minute localStorage protection</li>
+                  <li>TradingView interactive charting widgets</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">Chart.js</span><span class="tag">TradingView</span><span class="tag">REST APIs</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/crypto-website" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://kryptonix-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
+              </div>
+            </div>
+            <!-- PAGE 3 -->
+            <div class="carousel__page carousel__page--3">
+              <!-- 7. FocusFlow -->
+              <div class="project-card" data-category="web">
+                <div class="project-card__icon">🎯</div>
+                <h3 class="project-card__title">FocusFlow</h3>
+                <p class="project-card__desc">A lightweight task stopwatch and analytics app optimized for fluid micro-animations and zero state loss.</p>
+                <ul class="project-card__features">
+                  <li>Per-task independent concurrent stopwatches</li>
+                  <li>Focus analytics with today's time &amp; all-time records</li>
+                  <li>Safe tick persistence via instant localStorage writes</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">Performance</span><span class="tag">UI Engineering</span><span class="tag">LocalStorage</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/focusflow" target="_blank" rel="noopener" class="project-link" id="link-focusflow-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://focusflow-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-focusflow-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
+              </div>
+              <!-- 8. WebNotes -->
+              <div class="project-card" data-category="web">
+                <div class="project-card__icon">📚</div>
+                <h3 class="project-card__title">WebNotes</h3>
+                <p class="project-card__desc">A premium, interactive web client for organizing, reading, and studying programming guides and notes.</p>
+                <ul class="project-card__features">
+                  <li>3-card rotating carousel with scale/opacity effects</li>
+                  <li>Markdown import with auto-theme from 24 language configs</li>
+                  <li>Print-ready PDF export with custom CSS stylesheets</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">Marked.js</span><span class="tag">Highlight.js</span><span class="tag">Html2pdf</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/WebNotes" target="_blank" rel="noopener" class="project-link" id="link-webnotes-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://webynotes.netlify.app/" target="_blank" rel="noopener" class="project-link" id="link-webnotes-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
+              </div>
+              <!-- 9. CineFinder -->
+              <div class="project-card" data-category="web">
+                <div class="project-card__icon">🎬</div>
+                <h3 class="project-card__title">CineFinder</h3>
+                <p class="project-card__desc">A modern glassmorphic movie discovery engine with film statistics, cast lineups, ratings, and box office data.</p>
+                <ul class="project-card__features">
+                  <li>OMDb API key checker wizard with UI helpers</li>
+                  <li>Skeleton loaders preserving layout dimensions</li>
+                  <li>Responsive flex/CSS grid layout</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">OMDb API</span><span class="tag">Glassmorphism</span><span class="tag">HTML5</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Movie" target="_blank" rel="noopener" class="project-link" id="link-cinefinder"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
+            </div>
+            <!-- PAGE 4 -->
+            <div class="carousel__page carousel__page--3">
+              <!-- 10. QR Code Generator -->
+              <div class="project-card" data-category="cli">
+                <div class="project-card__icon">📱</div>
+                <h3 class="project-card__title">QR Code Generator CLI</h3>
+                <p class="project-card__desc">An interactive CLI utility to customize, generate, and preview QR codes with wizard setup and automation flags.</p>
+                <ul class="project-card__features">
+                  <li>Step-by-step console wizard for colors, sizes &amp; borders</li>
+                  <li>High-fidelity ASCII QR preview in terminal</li>
+                  <li>Silent generation with automation script flags</li>
+                </ul>
+                <div class="project-card__tags"><span class="tag">Python</span><span class="tag">qrcode</span><span class="tag">Pillow</span><span class="tag">CLI Design</span></div>
+                <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/QrCODE-GENRATOR" target="_blank" rel="noopener" class="project-link" id="link-qr"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- 2. Python Code Autocomplete LLM -->
-        <div class="project-card reveal" data-category="ai">
-          <div class="project-card__icon">🧬</div>
-          <h3 class="project-card__title">Code Autocomplete LLM</h3>
-          <p class="project-card__desc">
-            A GPT-style autoregressive Transformer trained entirely from scratch for Python code autocompletion.
-          </p>
-          <ul class="project-card__features">
-            <li>True GPT Decoder with causal self-attention &amp; masking</li>
-            <li>KV-Cache for O(1) step incremental decoding</li>
-            <li>Resume-safe checkpoint system with interrupt recovery</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">PyTorch</span>
-            <span class="tag">Tokenizers</span>
-            <span class="tag">Deep Learning</span>
-            <span class="tag">Transformers</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/Code-AutoComplete-LLM" target="_blank" rel="noopener" class="project-link" id="link-autocomplete">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-          </div>
+        <!-- Carousel Nav -->
+        <div class="carousel__nav">
+          <button class="carousel__arrow" data-dir="prev" aria-label="Previous projects"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <div class="carousel__dots" id="projectsDots"></div>
+          <button class="carousel__arrow" data-dir="next" aria-label="Next projects"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg></button>
         </div>
-
-        <!-- 3. LLM Advisor -->
-        <div class="project-card reveal" data-category="web">
-          <div class="project-card__icon">⚡</div>
-          <h3 class="project-card__title">llm-advisor.dev</h3>
-          <p class="project-card__desc">
-            A precision advisor for running LLMs on local consumer rigs, workstations, servers, and Apple Silicon.
-          </p>
-          <ul class="project-card__features">
-            <li>Dynamic VRAM breakdown: Weights vs. KV Cache vs. Overhead</li>
-            <li>Multi-mode: Model→Specs, Specs→Model, Custom Model</li>
-            <li>Apple Silicon unified memory support with command guides</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">ESM</span>
-            <span class="tag">Math Estimation</span>
-            <span class="tag">Web Design</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/llm-advisor" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-repo">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-            <a href="https://llm-advisor-ai.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-demo">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-              Live Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- 4. Code Assistants -->
-        <div class="project-card reveal" data-category="devtool">
-          <div class="project-card__icon">🛠️</div>
-          <h3 class="project-card__title">C &amp; Python Code Assistants</h3>
-          <p class="project-card__desc">
-            Fully local, AI-powered companion IDEs serving code completions, linting, error fixing, and execution.
-          </p>
-          <ul class="project-card__features">
-            <li>In-browser runners with GCC/Python sub-process execution</li>
-            <li>Live gutter-marker linting (cppcheck, flake8)</li>
-            <li>Quality-Retry Gate: LLM self-corrects if validations fail</li>
-            <li>Same-Origin Flask proxy for Ollama traffic</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">Python</span>
-            <span class="tag">Flask</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">Ollama</span>
-            <span class="tag">Dev Tools</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/C-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-c-assistant">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              C Assistant
-            </a>
-            <a href="https://github.com/CODExGAMERZ/Python-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-py-assistant">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Python Assistant
-            </a>
-          </div>
-        </div>
-
-        <!-- 5. Kryptonix -->
-        <div class="project-card reveal" data-category="web">
-          <div class="project-card__icon">💎</div>
-          <h3 class="project-card__title">Kryptonix</h3>
-          <p class="project-card__desc">
-            A premium dark-first obsidian glassmorphism crypto dashboard with dual-level caching and resilient fallbacks.
-          </p>
-          <ul class="project-card__features">
-            <li>Live markets portal with exchange tracking &amp; growth categories</li>
-            <li>Double caching with 5-minute localStorage protection</li>
-            <li>Resilient 429 fallback with mock data &amp; warning banners</li>
-            <li>TradingView interactive charting widgets</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">Chart.js</span>
-            <span class="tag">TradingView</span>
-            <span class="tag">REST APIs</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/crypto-website" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-repo">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-            <a href="https://kryptonix-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-demo">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-              Live Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- 6. FocusFlow -->
-        <div class="project-card reveal" data-category="web">
-          <div class="project-card__icon">🎯</div>
-          <h3 class="project-card__title">FocusFlow</h3>
-          <p class="project-card__desc">
-            A lightweight task stopwatch and analytics app optimized for fluid micro-animations and zero state loss.
-          </p>
-          <ul class="project-card__features">
-            <li>Per-task independent concurrent stopwatches</li>
-            <li>Focus analytics with today's time, all-time records &amp; trends</li>
-            <li>Safe tick persistence via instant localStorage writes</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">Performance</span>
-            <span class="tag">UI Engineering</span>
-            <span class="tag">LocalStorage</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/focusflow" target="_blank" rel="noopener" class="project-link" id="link-focusflow-repo">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-            <a href="https://focusflow-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-focusflow-demo">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-              Live Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- 7. WebNotes -->
-        <div class="project-card reveal" data-category="web">
-          <div class="project-card__icon">📚</div>
-          <h3 class="project-card__title">WebNotes</h3>
-          <p class="project-card__desc">
-            A premium, interactive web client for organizing, reading, and studying programming guides and reference notes.
-          </p>
-          <ul class="project-card__features">
-            <li>3-card rotating carousel with scale/opacity effects</li>
-            <li>Markdown import with auto-theme from 24 language configs</li>
-            <li>Print-ready PDF export with custom CSS stylesheets</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">Marked.js</span>
-            <span class="tag">Highlight.js</span>
-            <span class="tag">Html2pdf</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/WebNotes" target="_blank" rel="noopener" class="project-link" id="link-webnotes-repo">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-            <a href="https://webynotes.netlify.app/" target="_blank" rel="noopener" class="project-link" id="link-webnotes-demo">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
-              Live Demo
-            </a>
-          </div>
-        </div>
-
-        <!-- 8. CineFinder -->
-        <div class="project-card reveal" data-category="web">
-          <div class="project-card__icon">🎬</div>
-          <h3 class="project-card__title">CineFinder</h3>
-          <p class="project-card__desc">
-            A modern glassmorphic movie discovery engine with film statistics, cast lineups, ratings, and box office data.
-          </p>
-          <ul class="project-card__features">
-            <li>OMDb API key checker wizard with UI helpers</li>
-            <li>Skeleton loaders preserving layout dimensions</li>
-            <li>Responsive flex/CSS grid layout</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">JavaScript</span>
-            <span class="tag">OMDb API</span>
-            <span class="tag">Glassmorphism</span>
-            <span class="tag">HTML5</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/Movie" target="_blank" rel="noopener" class="project-link" id="link-cinefinder">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-          </div>
-        </div>
-
-        <!-- 9. QR Code Generator -->
-        <div class="project-card reveal" data-category="cli">
-          <div class="project-card__icon">📱</div>
-          <h3 class="project-card__title">QR Code Generator CLI</h3>
-          <p class="project-card__desc">
-            An interactive CLI utility to customize, generate, and preview QR codes with wizard setup and automation flags.
-          </p>
-          <ul class="project-card__features">
-            <li>Step-by-step console wizard for colors, sizes &amp; borders</li>
-            <li>High-fidelity ASCII QR preview in terminal</li>
-            <li>Silent generation with automation script flags</li>
-          </ul>
-          <div class="project-card__tags">
-            <span class="tag">Python</span>
-            <span class="tag">qrcode</span>
-            <span class="tag">Pillow</span>
-            <span class="tag">CLI Design</span>
-          </div>
-          <div class="project-card__links">
-            <a href="https://github.com/CODExGAMERZ/QrCODE-GENRATOR" target="_blank" rel="noopener" class="project-link" id="link-qr">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>
-              Source Code
-            </a>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -523,26 +409,49 @@
         </p>
       </div>
 
-      <div class="interests-grid stagger-children">
-        <div class="interest-card reveal">
-          <div class="interest-card__icon">🤖</div>
-          <h3 class="interest-card__title">AI &amp; Machine Learning</h3>
+      <div class="carousel reveal reveal-delay-3" id="interestsCarousel" data-autoplay="4000">
+        <div class="carousel__viewport">
+          <div class="carousel__track">
+            <div class="carousel__page carousel__page--3">
+              <div class="interest-card">
+                <div class="interest-card__icon">🤖</div>
+                <h3 class="interest-card__title">AI &amp; Machine Learning</h3>
+                <p class="interest-card__desc">Neural networks, classification, and intelligent automation</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-card__icon">🧬</div>
+                <h3 class="interest-card__title">Deep Learning &amp; Transformers</h3>
+                <p class="interest-card__desc">Attention mechanisms, GPT architectures, and training from scratch</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-card__icon">🔗</div>
+                <h3 class="interest-card__title">Hybrid AI Systems</h3>
+                <p class="interest-card__desc">Combining traditional ML, vector DBs, and LLMs for robust pipelines</p>
+              </div>
+            </div>
+            <div class="carousel__page carousel__page--3">
+              <div class="interest-card">
+                <div class="interest-card__icon">⚡</div>
+                <h3 class="interest-card__title">Local AI &amp; Inference Optimization</h3>
+                <p class="interest-card__desc">Running models on consumer hardware with minimal latency</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-card__icon">🛠️</div>
+                <h3 class="interest-card__title">Developer Tooling &amp; Static Analysis</h3>
+                <p class="interest-card__desc">Linting integrations, code assistants, and compiler toolchains</p>
+              </div>
+              <div class="interest-card">
+                <div class="interest-card__icon">🌐</div>
+                <h3 class="interest-card__title">Performance-First Web Engineering</h3>
+                <p class="interest-card__desc">Caching, resilient UIs, and zero-dependency architectures</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="interest-card reveal">
-          <div class="interest-card__icon">🧬</div>
-          <h3 class="interest-card__title">Deep Learning &amp; Transformers</h3>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-card__icon">🔗</div>
-          <h3 class="interest-card__title">Hybrid AI Systems</h3>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-card__icon">⚡</div>
-          <h3 class="interest-card__title">Local AI &amp; Inference Optimization</h3>
-        </div>
-        <div class="interest-card reveal">
-          <div class="interest-card__icon">🛠️</div>
-          <h3 class="interest-card__title">Developer Tooling &amp; Static Analysis</h3>
+        <div class="carousel__nav">
+          <button class="carousel__arrow" data-dir="prev" aria-label="Previous interests"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg></button>
+          <div class="carousel__dots" id="interestsDots"></div>
+          <button class="carousel__arrow" data-dir="next" aria-label="Next interests"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg></button>
         </div>
       </div>
     </div>
@@ -698,39 +607,71 @@
         requestAnimationFrame(step);
       }
 
-      /* ---- Project filter with smooth fade ---- */
-      const filterPills = document.querySelectorAll('.filter-pill');
-      const projectCards = document.querySelectorAll('.project-card');
+      /* ---- Carousel Engine ---- */
+      function initCarousel(carouselEl) {
+        const track = carouselEl.querySelector('.carousel__track');
+        const pages = track.querySelectorAll('.carousel__page');
+        const dotsContainer = carouselEl.querySelector('.carousel__dots');
+        const prevBtn = carouselEl.querySelector('[data-dir="prev"]');
+        const nextBtn = carouselEl.querySelector('[data-dir="next"]');
+        const autoplayMs = parseInt(carouselEl.dataset.autoplay, 10) || 5000;
 
-      filterPills.forEach(pill => {
-        pill.addEventListener('click', () => {
-          filterPills.forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          const filter = pill.dataset.filter;
+        let current = 0;
+        let autoplayTimer = null;
 
-          projectCards.forEach((card, i) => {
-            const category = card.dataset.category;
-            const shouldShow = filter === 'all' || category === filter;
-
-            if (shouldShow) {
-              card.style.display = '';
-              card.style.opacity = '0';
-              card.style.transform = 'translateY(20px)';
-              // Stagger the reveal
-              setTimeout(() => {
-                card.style.transition = 'opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo)';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-              }, i * 60);
-            } else {
-              card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-              card.style.opacity = '0';
-              card.style.transform = 'translateY(10px)';
-              setTimeout(() => { card.style.display = 'none'; }, 300);
-            }
-          });
+        // Create dots
+        pages.forEach((_, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+          dot.addEventListener('click', () => goTo(i));
+          dotsContainer.appendChild(dot);
         });
-      });
+
+        const dots = dotsContainer.querySelectorAll('.carousel__dot');
+
+        function goTo(index) {
+          current = ((index % pages.length) + pages.length) % pages.length;
+          track.style.transform = `translateX(-${current * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === current));
+          resetAutoplay();
+        }
+
+        prevBtn.addEventListener('click', () => goTo(current - 1));
+        nextBtn.addEventListener('click', () => goTo(current + 1));
+
+        // Auto-play
+        function startAutoplay() {
+          autoplayTimer = setInterval(() => goTo(current + 1), autoplayMs);
+        }
+        function resetAutoplay() {
+          clearInterval(autoplayTimer);
+          startAutoplay();
+        }
+
+        // Pause on hover
+        carouselEl.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+        carouselEl.addEventListener('mouseleave', startAutoplay);
+
+        // Touch swipe support
+        let touchStartX = 0;
+        carouselEl.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          clearInterval(autoplayTimer);
+        }, { passive: true });
+        carouselEl.addEventListener('touchend', (e) => {
+          const diff = touchStartX - e.changedTouches[0].screenX;
+          if (Math.abs(diff) > 50) {
+            goTo(diff > 0 ? current + 1 : current - 1);
+          }
+          startAutoplay();
+        }, { passive: true });
+
+        startAutoplay();
+      }
+
+      // Init all carousels
+      document.querySelectorAll('.carousel').forEach(initCarousel);
 
       /* ---- Active nav link highlighting ---- */
       const sections = document.querySelectorAll('section[id]');
