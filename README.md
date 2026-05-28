@@ -11,13 +11,13 @@ A premium, dark-themed developer portfolio built with **zero dependencies** — 
 | Feature | Description |
 |---|---|
 | 🌑 **Dark Glassmorphism** | Deep obsidian dark theme with layered glass cards, ambient purple/teal/pink glows, and subtle grid overlay |
-| 🎠 **Rotating Carousels** | Projects & interests rotate in pages of 3 with smooth slide transitions, auto-play, navigation arrows & dot indicators |
+| 🎠 **Sideways Sliding Carousels** | Projects & interests slide sideways card-by-card in a continuous flex track, featuring dynamic pagination dots, swipe gestures, resize auto-clamping, and autoplay hover guards |
 | ✨ **Cursor Glow** | A soft radial glow follows the mouse cursor with lerp-smoothed tracking (desktop only) |
 | 📊 **Animated Counters** | Stats count up with eased animations when they scroll into view |
 | 🔄 **Scroll Reveal** | Intersection Observer–powered staggered fade-in reveals across all sections |
-| 📱 **Fully Responsive** | Fluid layouts from mobile to ultrawide with hamburger nav and adaptive carousel grids |
+| 📱 **Fully Responsive** | Fluid layouts from mobile to ultrawide with hamburger nav and adaptive columns (3 on desktop, 2 on tablet, 1 on mobile) |
 | 🎨 **Modern Typography** | Outfit (headings), Inter (body), and JetBrains Mono (code/tags) via Google Fonts |
-| 🖱️ **Micro-Animations** | Hover tilts, icon rotations, gradient sweeps, shine effects, heartbeat footer, and spring-eased transitions |
+| 🖱️ **Micro-Animations** | Top edge RGB bars, title text gradients, hover lift transitions, icon tilts, shine sweeps, heartbeat footer, and spring-eased micro-interactions |
 | 🔗 **Active Nav Tracking** | Navigation links highlight based on current scroll position |
 | 🌊 **Parallax Shapes** | Floating gradient orbs in the hero drift on scroll for depth |
 
@@ -38,9 +38,9 @@ CodexGamerz.github.io/
 
 1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons
 2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + animated stat counters
-3. **Projects** — 10 featured builds in a rotating carousel with auto-play
+3. **Projects** — 10 featured builds in a smooth sideways sliding carousel with auto-play and hover pause
 4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
-5. **Interests** — 5 research areas cycling in a smooth carousel
+5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
 6. **Contact** — GitHub & Instagram cards with signature quote
 
 ---
