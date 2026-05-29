@@ -64,7 +64,7 @@ CodexGamerz.github.io/
 | 3 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
 | 4 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
 | 5 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
-| 6 | **VoltC** — Native desktop C/C++ IDE & web simulator (v1 + v2) | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
+| 6 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
 | 7 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
 | 8 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
 | 9 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
