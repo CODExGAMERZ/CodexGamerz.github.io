@@ -157,7 +157,7 @@
 
         <div class="stats-strip stagger-children">
           <div class="stat-card reveal reveal--scale-up">
-            <div class="stat-number" data-count="12">0</div>
+            <div class="stat-number" data-count="13">0</div>
             <div class="stat-label">Projects Built</div>
           </div>
           <div class="stat-card reveal reveal--scale-up">
@@ -188,7 +188,21 @@
       <div class="carousel reveal reveal--scale-up reveal-delay-3" id="projectsCarousel" data-autoplay="5000">
         <div class="carousel__viewport">
           <div class="carousel__track">
-            <!-- 1. ModelSight -->
+            <!-- 1. DataPrism -->
+            <div class="project-card" data-category="devtool">
+              <div class="project-card__icon">🔍</div>
+              <h3 class="project-card__title">DataPrism</h3>
+              <p class="project-card__desc">A local-first VS Code extension for instant dataset exploration, profiling, and data quality analysis for CSV and JSON files — 100% offline.</p>
+              <ul class="project-card__features">
+                <li>Tabbed interface: sortable preview grid, correlation heatmaps, data quality grading, and column-level statistical insights</li>
+                <li>TypeScript math engine: descriptive statistics, IQR outlier profiling, type consistency audits, and a 0-100 cleanliness score</li>
+                <li>Zero-configuration local parsing with UTF-8/Latin-1 CSV support and automatic nested JSON flattening</li>
+              </ul>
+              <div class="project-card__tags"><span class="tag">VS Code Extension</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Vite</span><span class="tag">EDA</span><span class="tag">Statistics</span></div>
+              <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/DataPrism" target="_blank" rel="noopener" class="project-link" id="link-dataprism"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
+            </div>
+
+            <!-- 2. ModelSight -->
             <div class="project-card" data-category="devtool">
               <div class="project-card__icon">📊</div>
               <h3 class="project-card__title">ModelSight</h3>
@@ -202,7 +216,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Model-Sight" target="_blank" rel="noopener" class="project-link" id="link-modelsight"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
 
-            <!-- 2. Hybrid AI Chatbot -->
+            <!-- 3. Hybrid AI Chatbot -->
             <div class="project-card" data-category="ai">
               <div class="project-card__icon">🤖</div>
               <h3 class="project-card__title">Hybrid AI Chatbot</h3>
@@ -216,7 +230,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/chatbot-ai" target="_blank" rel="noopener" class="project-link" id="link-chatbot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
 
-            <!-- 3. Code Autocomplete LLM -->
+            <!-- 4. Code Autocomplete LLM -->
             <div class="project-card" data-category="ai">
               <div class="project-card__icon">🧬</div>
               <h3 class="project-card__title">Code Autocomplete LLM</h3>
@@ -229,7 +243,7 @@
               <div class="project-card__tags"><span class="tag">PyTorch</span><span class="tag">Tokenizers</span><span class="tag">Deep Learning</span><span class="tag">Transformers</span></div>
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Code-AutoComplete-LLM" target="_blank" rel="noopener" class="project-link" id="link-autocomplete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
-            <!-- 4. LLM Advisor -->
+            <!-- 5. LLM Advisor -->
             <div class="project-card" data-category="web">
               <div class="project-card__icon">⚡</div>
               <h3 class="project-card__title">llm-advisor.dev</h3>
@@ -242,7 +256,7 @@
               <div class="project-card__tags"><span class="tag">JavaScript</span><span class="tag">ESM</span><span class="tag">Math Estimation</span><span class="tag">Web Design</span></div>
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/llm-advisor" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://llm-advisor-ai.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-llmadvisor-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
             </div>
-            <!-- 5. C-Code-Assistant -->
+            <!-- 6. C-Code-Assistant -->
             <div class="project-card" data-category="devtool">
               <div class="project-card__icon">🛠️</div>
               <h3 class="project-card__title">C-Code-Assistant</h3>
@@ -255,7 +269,7 @@
               <div class="project-card__tags"><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">JavaScript</span><span class="tag">Ollama</span><span class="tag">GCC</span></div>
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/C-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-c-assistant"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
-            <!-- 6. Python-Code-Assistant -->
+            <!-- 7. Python-Code-Assistant -->
             <div class="project-card" data-category="devtool">
               <div class="project-card__icon">🐍</div>
               <h3 class="project-card__title">Python-Code-Assistant</h3>
@@ -269,7 +283,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Python-Code-Assistant" target="_blank" rel="noopener" class="project-link" id="link-py-assistant"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
 
-            <!-- 7. VoltC -->
+            <!-- 8. VoltC -->
             <div class="project-card" data-category="devtool">
               <div class="project-card__icon">⚡</div>
               <h3 class="project-card__title">VoltC</h3>
@@ -283,7 +297,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/VoltC" target="_blank" rel="noopener" class="project-link" id="link-voltc-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://volt-c.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-voltc-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
             </div>
 
-            <!-- 8. Kryptonix -->
+            <!-- 9. Kryptonix -->
             <div class="project-card" data-category="web">
               <div class="project-card__icon">💎</div>
               <h3 class="project-card__title">Kryptonix</h3>
@@ -297,7 +311,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/crypto-website" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://kryptonix-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-kryptonix-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
             </div>
 
-            <!-- 9. FocusFlow -->
+            <!-- 10. FocusFlow -->
             <div class="project-card" data-category="web">
               <div class="project-card__icon">🎯</div>
               <h3 class="project-card__title">FocusFlow</h3>
@@ -311,7 +325,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/focusflow" target="_blank" rel="noopener" class="project-link" id="link-focusflow-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://focusflow-tv.vercel.app/" target="_blank" rel="noopener" class="project-link" id="link-focusflow-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
             </div>
 
-            <!-- 10. WebNotes -->
+            <!-- 11. WebNotes -->
             <div class="project-card" data-category="web">
               <div class="project-card__icon">📚</div>
               <h3 class="project-card__title">WebNotes</h3>
@@ -325,7 +339,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/WebNotes" target="_blank" rel="noopener" class="project-link" id="link-webnotes-repo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a><a href="https://webynotes.netlify.app/" target="_blank" rel="noopener" class="project-link" id="link-webnotes-demo"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>Live Demo</a></div>
             </div>
 
-            <!-- 11. CineFinder -->
+            <!-- 12. CineFinder -->
             <div class="project-card" data-category="web">
               <div class="project-card__icon">🎬</div>
               <h3 class="project-card__title">CineFinder</h3>
@@ -339,7 +353,7 @@
               <div class="project-card__links"><a href="https://github.com/CODExGAMERZ/Movie" target="_blank" rel="noopener" class="project-link" id="link-cinefinder"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12Z"/></svg>Source Code</a></div>
             </div>
 
-            <!-- 12. QR Code Generator -->
+            <!-- 13. QR Code Generator -->
             <div class="project-card" data-category="cli">
               <div class="project-card__icon">📱</div>
               <h3 class="project-card__title">QR Code Generator CLI</h3>
@@ -381,6 +395,7 @@
           <h3 class="tech-category__title">Languages</h3>
           <div class="tech-pills">
             <span class="tech-pill">Python</span>
+            <span class="tech-pill">TypeScript</span>
             <span class="tech-pill">JavaScript (ES6+)</span>
             <span class="tech-pill">C</span>
             <span class="tech-pill">HTML5</span>
@@ -407,6 +422,8 @@
           <h3 class="tech-category__title">Tools &amp; Infra</h3>
           <div class="tech-pills">
             <span class="tech-pill">Git</span>
+            <span class="tech-pill">React</span>
+            <span class="tech-pill">Vite</span>
             <span class="tech-pill">GitHub Pages</span>
             <span class="tech-pill">Flask</span>
             <span class="tech-pill">FastAPI</span>
