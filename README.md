@@ -38,7 +38,7 @@ CodexGamerz.github.io/
 
 1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons
 2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + animated stat counters
-3. **Projects** — 11 featured builds in a smooth sideways sliding carousel with auto-play and hover pause
+3. **Projects** — 12 featured builds in a smooth sideways sliding carousel with auto-play and hover pause
 4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
 5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
 6. **Contact** — GitHub & Instagram cards with signature quote
@@ -59,17 +59,18 @@ CodexGamerz.github.io/
 
 | # | Project | Type | Links |
 |---|---------|------|-------|
-| 1 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
-| 2 | **Code Autocomplete LLM** — GPT decoder from scratch | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
-| 3 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
-| 4 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
-| 5 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
-| 6 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
-| 7 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
-| 8 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
-| 9 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
-| 10 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
-| 11 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
+| 1 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) |
+| 2 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
+| 3 | **Code Autocomplete LLM** — GPT decoder from scratch | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
+| 4 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
+| 5 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
+| 6 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
+| 7 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
+| 8 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
+| 9 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
+| 10 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
+| 11 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
+| 12 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
 
 ---
 
