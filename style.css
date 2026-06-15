@@ -683,6 +683,13 @@ section { padding: var(--section-padding) 0; }
   overflow: visible;
 }
 
+.carousel:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 12px;
+  border-radius: var(--card-radius);
+  box-shadow: 0 0 40px rgba(124, 106, 255, 0.08);
+}
+
 .carousel__viewport {
   overflow: hidden;
   border-radius: var(--card-radius);

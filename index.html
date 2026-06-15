@@ -626,7 +626,7 @@
 
       window.addEventListener('scroll', onScroll, { passive: true });
 
-      /* ---- Mobile hamburger toggle ---- */
+      /* ---- Mobile hamburger toggle & click outside ---- */
       const hamburger = document.getElementById('navHamburger');
       const navLinks = document.getElementById('navLinks');
 
@@ -640,6 +640,24 @@
           hamburger.classList.remove('active');
           navLinks.classList.remove('open');
         });
+      });
+
+      // Close mobile menu on clicking outside
+      document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('open') && 
+            !navLinks.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        }
       });
 
       /* ---- Scroll reveal with staggered children ---- */
@@ -665,7 +683,7 @@
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const el = entry.target;
-              const target = parseInt(el.dataset.count, 10);
+              const target = parseInt(el.dataset.count, 10) || 0;
               animateCount(el, 0, target, 1200);
               counterObserver.unobserve(el);
             }
@@ -703,13 +721,22 @@
         let maxIndex = 0;
         let dots = [];
         let isHovered = false;
+        let isFocused = false;
+
+        // Accessibility Setup
+        carouselEl.setAttribute('tabindex', '0');
+        carouselEl.setAttribute('aria-roledescription', 'carousel');
+        if (!carouselEl.getAttribute('aria-label')) {
+          carouselEl.setAttribute('aria-label', 'Project carousel');
+        }
 
         function calculateLimits() {
           const card = cards[0];
           if (!card) return;
-          const cardWidth = card.getBoundingClientRect().width;
+          const cardWidth = card.getBoundingClientRect().width || 100;
           const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
-          const cardsPerView = Math.round((track.offsetWidth + gap) / (cardWidth + gap)) || 1;
+          const denominator = cardWidth + gap;
+          const cardsPerView = denominator > 0 ? Math.round((track.offsetWidth + gap) / denominator) : 1;
           maxIndex = Math.max(0, cards.length - cardsPerView);
           
           if (current > maxIndex) {
@@ -745,7 +772,7 @@
 
           const card = cards[0];
           if (card) {
-            const cardWidth = card.getBoundingClientRect().width;
+            const cardWidth = card.getBoundingClientRect().width || 100;
             const gap = parseFloat(window.getComputedStyle(track).gap) || 24;
             const offset = current * (cardWidth + gap);
             track.style.transform = `translateX(-${offset}px)`;
@@ -755,7 +782,7 @@
             dots.forEach((d, i) => d.classList.toggle('active', i === current));
           }
           
-          if (!isHovered) {
+          if (!isHovered && !isFocused) {
             resetAutoplay();
           }
         }
@@ -765,7 +792,7 @@
 
         // Auto-play
         function startAutoplay() {
-          if (isHovered) return;
+          if (isHovered || isFocused || document.hidden) return;
           clearInterval(autoplayTimer);
           autoplayTimer = setInterval(() => {
             goTo(current + 1);
@@ -791,6 +818,40 @@
           startAutoplay();
         });
 
+        // Pause on focus
+        carouselEl.addEventListener('focusin', () => {
+          isFocused = true;
+          stopAutoplay();
+        });
+        carouselEl.addEventListener('focusout', () => {
+          isFocused = false;
+          if (!isHovered) {
+            startAutoplay();
+          }
+        });
+
+        // Keyboard Arrow Navigation
+        carouselEl.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') {
+            goTo(current - 1);
+            e.preventDefault();
+          } else if (e.key === 'ArrowRight') {
+            goTo(current + 1);
+            e.preventDefault();
+          }
+        });
+
+        // Tab Visibility support
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            stopAutoplay();
+          } else {
+            if (!isHovered && !isFocused) {
+              startAutoplay();
+            }
+          }
+        });
+
         // Touch swipe support
         let touchStartX = 0;
         carouselEl.addEventListener('touchstart', (e) => {
@@ -803,7 +864,7 @@
           if (Math.abs(diff) > 50) {
             goTo(diff > 0 ? current + 1 : current - 1);
           }
-          if (!isHovered) {
+          if (!isHovered && !isFocused) {
             startAutoplay();
           }
         }, { passive: true });
@@ -812,10 +873,14 @@
         setupDots();
         goTo(current);
 
-        // Recalculate on window resize
+        // Recalculate on window resize (debounced to avoid performance jank)
+        let resizeTimer = null;
         window.addEventListener('resize', () => {
-          setupDots();
-          goTo(current);
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => {
+            setupDots();
+            goTo(current);
+          }, 150);
         }, { passive: true });
 
         startAutoplay();
@@ -827,18 +892,37 @@
       /* ---- Active nav link highlighting ---- */
       const sections = document.querySelectorAll('section[id]');
       const navAnchors = document.querySelectorAll('.nav-links a');
+      let sectionOffsets = [];
+
+      const cacheSectionOffsets = () => {
+        sectionOffsets = Array.from(sections).map(section => ({
+          id: section.getAttribute('id'),
+          top: section.offsetTop - 120,
+          bottom: section.offsetTop - 120 + section.offsetHeight
+        }));
+      };
+
+      // Initial offset cache
+      cacheSectionOffsets();
+
+      // Recache on resize (debounced)
+      let scrollResizeTimer = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(scrollResizeTimer);
+        scrollResizeTimer = setTimeout(cacheSectionOffsets, 200);
+      }, { passive: true });
 
       const updateActiveNav = () => {
         let current = '';
         const scrollY = window.scrollY;
 
-        sections.forEach(section => {
-          const top = section.offsetTop - 120;
-          const bottom = top + section.offsetHeight;
-          if (scrollY >= top && scrollY < bottom) {
-            current = section.getAttribute('id');
+        for (let i = 0; i < sectionOffsets.length; i++) {
+          const s = sectionOffsets[i];
+          if (scrollY >= s.top && scrollY < s.bottom) {
+            current = s.id;
+            break;
           }
-        });
+        }
 
         navAnchors.forEach(a => {
           a.classList.toggle('active', a.getAttribute('href') === '#' + current);
@@ -850,11 +934,15 @@
       /* ---- Smooth parallax for floating shapes ---- */
       const heroVisual = document.querySelector('.hero-visual');
       if (heroVisual && window.matchMedia('(pointer: fine)').matches) {
+        let scrollTimer = null;
         window.addEventListener('scroll', () => {
-          const scrolled = window.scrollY;
-          if (scrolled < window.innerHeight) {
-            heroVisual.style.transform = `translateY(calc(-50% + ${scrolled * 0.15}px))`;
-          }
+          if (scrollTimer) cancelAnimationFrame(scrollTimer);
+          scrollTimer = requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            if (scrolled < window.innerHeight) {
+              heroVisual.style.transform = `translateY(calc(-50% + ${scrolled * 0.15}px))`;
+            }
+          });
         }, { passive: true });
       }
     })();
