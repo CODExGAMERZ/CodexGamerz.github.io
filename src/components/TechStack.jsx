@@ -1,17 +1,19 @@
+import { TerminalIcon, BrainIcon, ScaffoldIcon } from './Icons';
+
 export default function TechStack() {
   const categories = [
     {
-      icon: '💻',
+      icon: <TerminalIcon />,
       title: 'Languages',
       pills: ['Python', 'TypeScript', 'JavaScript (ES6+)', 'Kotlin', 'C', 'HTML5', 'CSS3']
     },
     {
-      icon: '🧠',
+      icon: <BrainIcon />,
       title: 'AI / Deep Learning',
       pills: ['PyTorch', 'TensorFlow / Keras', 'FAISS', 'Sentence Transformers', 'NLP', 'Ollama', 'Tokenizers']
     },
     {
-      icon: '🔧',
+      icon: <ScaffoldIcon />,
       title: 'Tools & Infra',
       pills: [
         'Git', 'Node.js', 'WebAssembly', 'Tree-sitter', 'Android', 'Jetpack Compose', 'Supabase',

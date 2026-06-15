@@ -1,3 +1,4 @@
+import { BrainIcon, CpuIcon, LayersIcon, ZapIcon } from './Icons';
 import useCountUp from '../hooks/useCountUp';
 
 function StatCard({ label, countTarget }) {
@@ -15,22 +16,22 @@ function StatCard({ label, countTarget }) {
 export default function About() {
   const focusAreas = [
     {
-      icon: '🧠',
+      icon: <BrainIcon />,
       title: 'ML & Deep Learning',
       desc: 'Custom models, training pipelines, and inference optimization'
     },
     {
-      icon: '🤖',
+      icon: <CpuIcon />,
       title: 'LLMs & Local Inference',
       desc: 'Building and deploying language models on consumer hardware'
     },
     {
-      icon: '⚙️',
+      icon: <LayersIcon />,
       title: 'System Design',
       desc: 'Compiler integration, proxy architectures, and hybrid systems'
     },
     {
-      icon: '⚡',
+      icon: <ZapIcon />,
       title: 'Client Optimization',
       desc: 'Caching architectures, performance tuning, and resilient UIs'
     }

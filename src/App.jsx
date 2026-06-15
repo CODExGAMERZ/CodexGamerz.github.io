@@ -10,6 +10,28 @@ import Footer from './components/Footer';
 import useCursorGlow from './hooks/useCursorGlow';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
 
+import {
+  CodeScopeIcon,
+  ScaffoldIcon,
+  MindIcon,
+  PrismIcon,
+  SightIcon,
+  ChatbotIcon,
+  BrainIcon,
+  AdvisorIcon,
+  CompilerIcon,
+  TerminalIcon,
+  VoltIcon,
+  CryptoIcon,
+  StopwatchIcon,
+  NotesIcon,
+  MovieIcon,
+  QrIcon,
+  CpuIcon,
+  LayersIcon,
+  ZapIcon
+} from './components/Icons';
+
 // SVG components for clean markup
 function GithubIcon() {
   return (
@@ -81,7 +103,7 @@ export default function App() {
 
   const projects = [
     {
-      icon: "👁️",
+      icon: <CodeScopeIcon />,
       title: "LogicScope",
       category: "devtool",
       desc: "A real-time DSA & OOP visualizer extension for VS Code that automatically generates control flows, UML diagrams, and recursion trees as you type.",
@@ -96,7 +118,7 @@ export default function App() {
       ]
     },
     {
-      icon: "⚙️",
+      icon: <ScaffoldIcon />,
       title: "scaffold-agent-skill",
       category: "cli",
       desc: "An interactive, multi-platform CLI scaffolding tool to generate AI agent skills, plugins, and production-ready server stubs from a single specification.",
@@ -111,7 +133,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🧠",
+      icon: <BrainIcon />,
       title: "DataMind AI",
       category: "ai",
       desc: "A secure, client-first Android platform for AI research paper summaries, smart dataset profiling, automated EDA, and coding assistant tools.",
@@ -126,7 +148,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🔍",
+      icon: <PrismIcon />,
       title: "DataPrism",
       category: "devtool",
       desc: "A local-first VS Code extension for instant dataset exploration, profiling, and data quality analysis for CSV and JSON files — 100% offline.",
@@ -141,7 +163,7 @@ export default function App() {
       ]
     },
     {
-      icon: "📊",
+      icon: <SightIcon />,
       title: "ModelSight",
       category: "devtool",
       desc: "A local-first VS Code extension serving as a real-time machine learning training monitor and interactive runtime error explainer.",
@@ -156,7 +178,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🤖",
+      icon: <ChatbotIcon />,
       title: "Hybrid AI Chatbot",
       category: "ai",
       desc: "A production-oriented AI assistant with semantic memory, self-learning pipeline, and custom LLM teacher fallback.",
@@ -171,7 +193,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🧬",
+      icon: <MindIcon />,
       title: "Code Autocomplete LLM",
       category: "ai",
       desc: "A GPT-style autoregressive Transformer trained from scratch for Python code autocompletion.",
@@ -186,7 +208,7 @@ export default function App() {
       ]
     },
     {
-      icon: "⚡",
+      icon: <AdvisorIcon />,
       title: "llm-advisor.dev",
       category: "web",
       desc: "A precision advisor for running LLMs on local consumer rigs, workstations, servers, and Apple Silicon.",
@@ -202,7 +224,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🛠️",
+      icon: <CompilerIcon />,
       title: "C-Code-Assistant",
       category: "devtool",
       desc: "Fully local, AI-powered C programming IDE with code completions, linting, error fixing, and execution.",
@@ -217,7 +239,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🐍",
+      icon: <TerminalIcon />,
       title: "Python-Code-Assistant",
       category: "devtool",
       desc: "Fully local, AI-powered Python IDE with code completions, linting, error fixing, and execution.",
@@ -232,7 +254,7 @@ export default function App() {
       ]
     },
     {
-      icon: "⚡",
+      icon: <VoltIcon />,
       title: "VoltC",
       category: "devtool",
       desc: "A native desktop C/C++ IDE for Ubuntu Linux, showcased via an interactive web simulator landing page.",
@@ -248,7 +270,7 @@ export default function App() {
       ]
     },
     {
-      icon: "💎",
+      icon: <CryptoIcon />,
       title: "Kryptonix",
       category: "web",
       desc: "A premium dark-first obsidian glassmorphism crypto dashboard with dual-level caching and resilient fallbacks.",
@@ -264,7 +286,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🎯",
+      icon: <StopwatchIcon />,
       title: "FocusFlow",
       category: "web",
       desc: "A lightweight task stopwatch and analytics app optimized for fluid micro-animations and zero state loss.",
@@ -280,7 +302,7 @@ export default function App() {
       ]
     },
     {
-      icon: "📚",
+      icon: <NotesIcon />,
       title: "WebNotes",
       category: "web",
       desc: "A premium, interactive web client for organizing, reading, and studying programming guides and notes.",
@@ -296,7 +318,7 @@ export default function App() {
       ]
     },
     {
-      icon: "🎬",
+      icon: <MovieIcon />,
       title: "CineFinder",
       category: "web",
       desc: "A modern glassmorphic movie discovery engine with film statistics, cast lineups, ratings, and box office data.",
@@ -311,12 +333,12 @@ export default function App() {
       ]
     },
     {
-      icon: "📱",
+      icon: <QrIcon />,
       title: "QR Code Generator CLI",
       category: "cli",
       desc: "An interactive CLI utility to customize, generate, and preview QR codes with wizard setup and automation flags.",
       features: [
-        "Step-by-step console wizard for colors, sizes & borders",
+        "Showcase Site: Landing page featuring a mockup and interactive online IDE simulator for users",
         "High-fidelity ASCII QR preview in terminal",
         "Silent generation with automation script flags"
       ],
@@ -329,32 +351,32 @@ export default function App() {
 
   const interests = [
     {
-      icon: "🤖",
+      icon: <CpuIcon />,
       title: "AI & Machine Learning",
       desc: "Neural networks, classification, and intelligent automation"
     },
     {
-      icon: "🧬",
+      icon: <BrainIcon />,
       title: "Deep Learning & Transformers",
       desc: "Attention mechanisms, GPT architectures, and training from scratch"
     },
     {
-      icon: "🔗",
+      icon: <LayersIcon />,
       title: "Hybrid AI Systems",
       desc: "Combining traditional ML, vector DBs, and LLMs for robust pipelines"
     },
     {
-      icon: "⚡",
+      icon: <ZapIcon />,
       title: "Local AI & Inference Optimization",
       desc: "Running models on consumer hardware with minimal latency"
     },
     {
-      icon: "🛠️",
+      icon: <CompilerIcon />,
       title: "Developer Tooling & Static Analysis",
       desc: "Linting integrations, code assistants, and compiler toolchains"
     },
     {
-      icon: "🌐",
+      icon: <CodeScopeIcon />,
       title: "Performance-First Web Engineering",
       desc: "Caching, resilient UIs, and zero-dependency architectures"
     }

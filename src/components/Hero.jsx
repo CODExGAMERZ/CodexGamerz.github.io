@@ -1,32 +1,4 @@
-import { useEffect, useRef } from 'react';
-
 export default function Hero() {
-  const visualRef = useRef(null);
-
-  useEffect(() => {
-    const isDesktop = window.matchMedia('(pointer: fine)').matches;
-    const visualEl = visualRef.current;
-    if (!isDesktop || !visualEl) return;
-
-    let rafId = null;
-
-    const onScroll = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const scrolled = window.scrollY;
-        if (scrolled < window.innerHeight && visualEl) {
-          visualEl.style.transform = `translateY(calc(-50% + ${scrolled * 0.15}px))`;
-        }
-      });
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
   return (
     <section className="hero" id="hero">
       <div className="container">
@@ -61,13 +33,6 @@ export default function Hero() {
             </a>
           </div>
         </div>
-      </div>
-
-      {/* Floating visuals */}
-      <div className="hero-visual" ref={visualRef} aria-hidden="true">
-        <div className="floating-shape floating-shape--1"></div>
-        <div className="floating-shape floating-shape--2"></div>
-        <div className="floating-shape floating-shape--3"></div>
       </div>
 
       {/* Scroll indicator */}
