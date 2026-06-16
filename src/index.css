@@ -1402,24 +1402,6 @@ footer .heart {
   margin-bottom: 3.5rem;
 }
 
-.metrics-chart-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3rem;
-  overflow-x: auto;
-  padding: 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--card-radius);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-}
-
-.metrics-chart {
-  max-width: 100%;
-  height: auto;
-  filter: saturate(1.2) contrast(1.1);
-}
-
 .metrics-grid {
   display: flex;
   justify-content: center;
