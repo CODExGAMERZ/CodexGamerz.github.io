@@ -126,7 +126,8 @@ export default function App() {
       ],
       tags: ["VS Code Extension", "TypeScript", "WebAssembly", "Tree-sitter", "Mermaid.js"],
       links: [
-        { label: "Source Code", href: "https://github.com/CODExGAMERZ/LogicScope", id: "link-logicscope" }
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/LogicScope", id: "link-logicscope" },
+        { label: "Live Demo", href: "https://logicscope.vercel.app/", id: "link-logicscope-demo", isDemo: true }
       ]
     },
     {
@@ -186,7 +187,8 @@ export default function App() {
       ],
       tags: ["VS Code Extension", "TypeScript", "React", "Vite", "EDA", "Statistics"],
       links: [
-        { label: "Source Code", href: "https://github.com/CODExGAMERZ/DataPrism", id: "link-dataprism" }
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/DataPrism", id: "link-dataprism" },
+        { label: "Live Demo", href: "https://dataprismext.vercel.app/", id: "link-dataprism-demo", isDemo: true }
       ]
     },
     {
@@ -201,7 +203,8 @@ export default function App() {
       ],
       tags: ["VS Code Extension", "Python", "JavaScript", "HTML5/CSS3", "Telemetry"],
       links: [
-        { label: "Source Code", href: "https://github.com/CODExGAMERZ/Model-Sight", id: "link-modelsight" }
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/Model-Sight", id: "link-modelsight" },
+        { label: "Live Demo", href: "https://modelsight.vercel.app/", id: "link-modelsight-demo", isDemo: true }
       ]
     },
     {
