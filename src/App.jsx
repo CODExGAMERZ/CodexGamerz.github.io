@@ -533,8 +533,8 @@ export default function App() {
             <h2 className="section-title reveal reveal--blur-in reveal-delay-1">Open Source Activity</h2>
           </div>
           <div className="metrics-grid reveal reveal--scale-up reveal-delay-2">
-            <img src="https://github-readme-stats.vercel.app/api?username=CODExGAMERZ&show_icons=true&theme=calm&hide_border=true&bg_color=09090b&title_color=6366f1&icon_color=6366f1&text_color=a1a1aa" alt="Aryan's GitHub Stats" className="metric-card" />
-            <img src="https://github-readme-streak-stats.herokuapp.com/?user=CODExGAMERZ&theme=dark&hide_border=true&background=09090b&ring=6366f1&fire=10b981&currStreakNum=f4f4f5&sideNums=a1a1aa&sideLabels=a1a1aa&dates=a1a1aa" alt="Aryan's Streak Stats" className="metric-card" />
+            <img src="https://github-readme-stats.vercel.app/api?username=CODExGAMERZ&show_icons=true&theme=calm&hide_border=true&bg_color=09090b&title_color=6366f1&icon_color=6366f1&text_color=a1a1aa&count_private=true&cache_seconds=1800" alt="Aryan's GitHub Stats" className="metric-card" />
+            <img src="https://github-readme-streak-stats.herokuapp.com/?user=CODExGAMERZ&theme=dark&hide_border=true&background=09090b&ring=6366f1&fire=10b981&currStreakNum=f4f4f5&sideNums=a1a1aa&sideLabels=a1a1aa&dates=a1a1aa&cache_seconds=1800" alt="Aryan's Streak Stats" className="metric-card" />
           </div>
         </div>
       </section>
