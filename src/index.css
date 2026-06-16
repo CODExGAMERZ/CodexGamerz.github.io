@@ -1390,6 +1390,44 @@ footer .heart {
 }
 
 /* ============================================
+   METRICS SECTION
+   ============================================ */
+.metrics-section {
+  padding: var(--section-padding) 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.metrics-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.metrics-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.metrics-grid img {
+  height: 195px;
+  width: auto;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  padding: 1.5rem;
+  transition: all 0.5s var(--ease-out-expo);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+}
+
+.metrics-grid img:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {

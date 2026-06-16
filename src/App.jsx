@@ -29,7 +29,8 @@ import {
   QrIcon,
   CpuIcon,
   LayersIcon,
-  ZapIcon
+  ZapIcon,
+  ReportIcon
 } from './components/Icons';
 
 // SVG components for clean markup
@@ -126,6 +127,21 @@ export default function App() {
       tags: ["VS Code Extension", "TypeScript", "WebAssembly", "Tree-sitter", "Mermaid.js"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/LogicScope", id: "link-logicscope" }
+      ]
+    },
+    {
+      icon: <ReportIcon />,
+      title: "Excel to Word Report Generator",
+      category: "devtool",
+      desc: "An automated data analysis tool that reads multi-sheet Excel files, processes the datasets, and generates beautifully styled Microsoft Word (.docx) executive reports containing statistics and custom charts.",
+      features: [
+        "Multi-sheet auto-profiling of numerical data (standard deviation, percentiles) and categorical data (frequencies, modes)",
+        "Automated rendering and embedding of matplotlib visual distributions (histograms, horizontal comparison bar charts)",
+        "Built-in executive callout panels, dynamic formatted data tables, custom borders, and running page headers/footers"
+      ],
+      tags: ["Python", "Pandas", "Matplotlib", "python-docx", "openpyxl", "Data Analysis"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/excel-to-word-report-generator", id: "link-excel-report-generator" }
       ]
     },
     {
@@ -506,6 +522,20 @@ export default function App() {
               <InterestCard interest={interest} key={idx} />
             ))}
           </Carousel>
+        </div>
+      </section>
+
+      {/* GitHub Activity Metrics */}
+      <section id="github-metrics" className="metrics-section reveal reveal--scale-up">
+        <div className="container">
+          <div className="metrics-header">
+            <span className="section-label reveal reveal--blur-in">// GitHub Metrics</span>
+            <h2 className="section-title reveal reveal--blur-in reveal-delay-1">Open Source Activity</h2>
+          </div>
+          <div className="metrics-grid reveal reveal--scale-up reveal-delay-2">
+            <img src="https://github-readme-stats.vercel.app/api?username=CODExGAMERZ&show_icons=true&theme=calm&hide_border=true&bg_color=09090b&title_color=6366f1&icon_color=6366f1&text_color=a1a1aa" alt="Aryan's GitHub Stats" className="metric-card" />
+            <img src="https://github-readme-streak-stats.herokuapp.com/?user=CODExGAMERZ&theme=dark&hide_border=true&background=09090b&ring=6366f1&fire=10b981&currStreakNum=f4f4f5&sideNums=a1a1aa&sideLabels=a1a1aa&dates=a1a1aa" alt="Aryan's Streak Stats" className="metric-card" />
+          </div>
         </div>
       </section>
 
