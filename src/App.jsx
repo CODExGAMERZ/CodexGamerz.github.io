@@ -532,8 +532,13 @@ export default function App() {
             <span className="section-label reveal reveal--blur-in">// GitHub Metrics</span>
             <h2 className="section-title reveal reveal--blur-in reveal-delay-1">Open Source Activity</h2>
           </div>
-          <div className="metrics-grid reveal reveal--scale-up reveal-delay-2">
-            <img src="https://github-readme-stats.vercel.app/api?username=CODExGAMERZ&show_icons=true&theme=calm&hide_border=true&bg_color=09090b&title_color=6366f1&icon_color=6366f1&text_color=a1a1aa&count_private=true&cache_seconds=1800" alt="Aryan's GitHub Stats" className="metric-card" />
+          
+          <div className="metrics-chart-container reveal reveal--scale-up reveal-delay-2">
+            <img src="https://ghchart.rshah.org/6366f1/CODExGAMERZ" alt="Aryan's GitHub Contributions Calendar" className="metrics-chart" />
+          </div>
+
+          <div className="metrics-grid reveal reveal--scale-up reveal-delay-3">
+            <img src="https://github-readme-stats.vercel.app/api?username=CODExGAMERZ&show_icons=true&theme=calm&hide_border=true&bg_color=09090b&title_color=6366f1&icon_color=6366f1&text_color=a1a1aa&count_private=true&include_all_commits=true&cache_seconds=1800" alt="Aryan's GitHub Stats" className="metric-card" />
             <img src="https://github-readme-streak-stats.herokuapp.com/?user=CODExGAMERZ&theme=dark&hide_border=true&background=09090b&ring=6366f1&fire=10b981&currStreakNum=f4f4f5&sideNums=a1a1aa&sideLabels=a1a1aa&dates=a1a1aa&cache_seconds=1800" alt="Aryan's Streak Stats" className="metric-card" />
           </div>
         </div>
