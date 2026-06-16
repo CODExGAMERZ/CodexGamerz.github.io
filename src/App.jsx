@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -100,6 +100,17 @@ export default function App() {
 
   // Scroll reveal hooks
   useIntersectionObserver();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'ai', label: 'AI & ML' },
+    { id: 'devtool', label: 'Developer Tools' },
+    { id: 'web', label: 'Web Apps' },
+    { id: 'cli', label: 'CLI & Utilities' }
+  ];
 
   const projects = [
     {
@@ -382,6 +393,14 @@ export default function App() {
     }
   ];
 
+  const filteredProjects = projects.filter(project => {
+    const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
+    const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          project.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesCategory && matchesSearch;
+  });
+
   return (
     <>
       {/* Cursor glow */}
@@ -397,7 +416,7 @@ export default function App() {
       <Navbar />
 
       {/* Hero */}
-      <Hero />
+      <Hero projects={projects} />
 
       {/* About */}
       <About />
@@ -413,11 +432,58 @@ export default function App() {
             </p>
           </div>
 
-          <Carousel autoplayMs={5000} ariaLabel="Featured Projects">
-            {projects.map((project, idx) => (
-              <ProjectCard project={project} key={idx} />
-            ))}
-          </Carousel>
+          <div className="projects-filter-bar reveal reveal--blur-in reveal-delay-3">
+            <div className="search-box-wrapper">
+              <svg className="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.602 10.602Z" />
+              </svg>
+              <input 
+                type="text" 
+                className="search-input" 
+                placeholder="Search by name, tags, description..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <button className="clear-search-btn" onClick={() => setSearchQuery('')} aria-label="Clear Search">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+
+            <div className="category-tags-wrapper">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  className={`category-tag-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {filteredProjects.length > 0 ? (
+            <Carousel autoplayMs={5000} ariaLabel="Featured Projects">
+              {filteredProjects.map((project, idx) => (
+                <ProjectCard project={project} key={idx} />
+              ))}
+            </Carousel>
+          ) : (
+            <div className="no-results-card reveal reveal--scale-up">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <h3>No projects found</h3>
+              <p>No builds match your search "{searchQuery}" or category filter.</p>
+              <button className="btn btn--ghost btn--small" onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}>
+                Reset Filters
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

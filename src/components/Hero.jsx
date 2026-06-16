@@ -1,7 +1,9 @@
-export default function Hero() {
+import Terminal from './Terminal';
+
+export default function Hero({ projects = [] }) {
   return (
     <section className="hero" id="hero">
-      <div className="container">
+      <div className="container hero-container">
         <div className="hero-content">
           <div className="hero-badge">
             <span className="pulse"></span>
@@ -32,6 +34,10 @@ export default function Hero() {
               GitHub Profile
             </a>
           </div>
+        </div>
+
+        <div className="hero-terminal-wrapper">
+          <Terminal projects={projects} />
         </div>
       </div>
 
