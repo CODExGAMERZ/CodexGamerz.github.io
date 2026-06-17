@@ -132,17 +132,17 @@ export default function App() {
     },
     {
       icon: <ReportIcon />,
-      title: "Excel to Word Report Generator",
+      title: "LinguistReport",
       category: "devtool",
-      desc: "An automated data analysis tool that reads multi-sheet Excel files, processes the datasets, and generates beautifully styled Microsoft Word (.docx) executive reports containing statistics and custom charts.",
+      desc: "A unified NLP text analysis tool and Python suite that performs advanced comparative linguistic profiling and compiles publication-quality Microsoft Word (.docx) reports from structured Excel data.",
       features: [
-        "Multi-sheet auto-profiling of numerical data (standard deviation, percentiles) and categorical data (frequencies, modes)",
-        "Automated rendering and embedding of matplotlib visual distributions (histograms, horizontal comparison bar charts)",
-        "Built-in executive callout panels, dynamic formatted data tables, custom borders, and running page headers/footers"
+        "Extracts detailed language metrics: stylometric richness (lexical diversity), readability indices (Flesch, Gunning Fog), VADER sentiment polarity, and affective emotions (NRCLex)",
+        "Generates professional executive Word reports featuring KPI callout panels, custom styled tables, layout rules, and automated page number pagination",
+        "Renders dynamic comparative matplotlib visualizations including side-by-side emotion graphs, readability grades, and horizontal variable distributions"
       ],
-      tags: ["Python", "Pandas", "Matplotlib", "python-docx", "openpyxl", "Data Analysis"],
+      tags: ["Python", "NLP", "Pandas", "Matplotlib", "python-docx", "NLTK", "Data Analysis"],
       links: [
-        { label: "Source Code", href: "https://github.com/CODExGAMERZ/excel-to-word-report-generator", id: "link-excel-report-generator" }
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/LinguistReport", id: "link-linguist-report" }
       ]
     },
     {
