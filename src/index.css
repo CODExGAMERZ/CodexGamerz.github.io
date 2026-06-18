@@ -207,6 +207,31 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
+.nav-logo-wrapper {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform var(--transition-fast);
+}
+
+.nav-logo-wrapper:hover {
+  transform: scale(1.03);
+}
+
+.nav-logo-icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 8px;
+  color: var(--color-primary);
+  filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.4));
+  transition: all 0.3s ease;
+}
+
+.nav-logo-wrapper:hover .nav-logo-icon {
+  transform: rotate(-10deg) scale(1.1);
+  color: var(--color-secondary);
+}
+
 .nav-logo {
   font-family: var(--font-heading);
   font-size: 1.5rem;
@@ -216,9 +241,7 @@ img { max-width: 100%; display: block; }
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: -0.03em;
-  transition: transform var(--transition-fast);
 }
-.nav-logo:hover { transform: scale(1.05); }
 
 .nav-links {
   display: flex;
@@ -1411,8 +1434,10 @@ footer .heart {
 }
 
 .metrics-grid img {
-  height: 195px;
-  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 195px;
+  object-fit: contain;
   border-radius: var(--card-radius);
   border: 1px solid var(--border-subtle);
   background: var(--bg-card);

@@ -454,7 +454,7 @@ export default function App() {
       <Hero projects={projects} />
 
       {/* About */}
-      <About />
+      <About projects={projects} />
 
       {/* Projects Carousel Section */}
       <section id="projects">

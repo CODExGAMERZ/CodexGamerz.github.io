@@ -13,7 +13,7 @@ function StatCard({ label, countTarget }) {
   );
 }
 
-export default function About() {
+export default function About({ projects = [] }) {
   const focusAreas = [
     {
       icon: <BrainIcon />,
@@ -36,6 +36,8 @@ export default function About() {
       desc: 'Caching architectures, performance tuning, and resilient UIs'
     }
   ];
+
+  const liveDemosCount = projects.filter(p => p.links?.some(l => l.isDemo)).length;
 
   return (
     <section id="about">
@@ -68,9 +70,9 @@ export default function About() {
           </div>
 
           <div className="stats-strip stagger-children">
-            <StatCard label="Projects Built" countTarget={16} />
+            <StatCard label="Projects Built" countTarget={projects.length} />
             <StatCard label="AI / ML Systems" countTarget={10} />
-            <StatCard label="Live Demos" countTarget={5} />
+            <StatCard label="Live Demos" countTarget={liveDemosCount} />
           </div>
         </div>
       </div>
