@@ -30,7 +30,8 @@ import {
   CpuIcon,
   LayersIcon,
   ZapIcon,
-  ReportIcon
+  ReportIcon,
+  ShieldIcon
 } from './components/Icons';
 
 // SVG components for clean markup
@@ -173,6 +174,21 @@ export default function App() {
       tags: ["Android", "Kotlin", "Jetpack Compose", "Gemini API", "Supabase", "EDA", "Material 3"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/DataMind-ai", id: "link-datamindai" }
+      ]
+    },
+    {
+      icon: <ShieldIcon />,
+      title: "SentinelRAG",
+      category: "ai",
+      desc: "A local-first Retrieval-Augmented Generation (RAG) CLI and Python engine for indexing local files, resolving entity graph relationships, and performing local Q&A with citations.",
+      features: [
+        "Local knowledge base ingestion supporting Markdown, text, CSV, HTML, and PDF files with global shared storage across any directory",
+        "Dual-mode response generation featuring Ollama integration (with hardware profiling and model recommendations) and extractive search fallback",
+        "Lightweight entity graph relationship mapping to inject contextual network connections into search results alongside source citations"
+      ],
+      tags: ["Python", "RAG", "NLP", "Ollama", "CLI", "Graph Database", "Local First"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/SentinelRAG", id: "link-sentinelrag" }
       ]
     },
     {
