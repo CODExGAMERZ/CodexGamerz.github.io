@@ -180,13 +180,13 @@ export default function App() {
       icon: <ShieldIcon />,
       title: "SentinelRAG",
       category: "ai",
-      desc: "A local-first Retrieval-Augmented Generation (RAG) CLI and Python engine for indexing local files, resolving entity graph relationships, and performing local Q&A with citations.",
+      desc: "A high-performance, privacy-first local hybrid RAG engine that turns your local files and Obsidian Markdown Vaults into a private, highly-contextualized query engine.",
       features: [
-        "Local knowledge base ingestion supporting Markdown, text, CSV, HTML, and PDF files with global shared storage across any directory",
-        "Dual-mode response generation featuring Ollama integration (with hardware profiling and model recommendations) and extractive search fallback",
-        "Lightweight entity graph relationship mapping to inject contextual network connections into search results alongside source citations"
+        "Local ingestion pipeline parsing Wikilinks, structural headers, and metadata, backed by debounced real-time Watchdog watchers",
+        "Hybrid retrieval fusing local Qdrant vector similarity with SQLite document-level eigenvector centrality via Reciprocal Rank Fusion (RRF)",
+        "Hardware-adaptive LangGraph agent workflows orchestrating query planning, grounding verification, and cited synthesis via local Ollama inference"
       ],
-      tags: ["Python", "RAG", "NLP", "Ollama", "CLI", "Graph Database", "Local First"],
+      tags: ["Python", "LangGraph", "Qdrant", "Ollama", "CLI", "SQLite", "Local First"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/SentinelRAG", id: "link-sentinelrag" }
       ]
