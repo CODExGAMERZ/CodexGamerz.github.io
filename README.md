@@ -1,6 +1,6 @@
 # ⚡ Aryan (CODExGAMERZ) — Portfolio
 
-A premium, dark-themed developer portfolio built with **zero dependencies** — pure HTML, CSS & vanilla JavaScript.
+A premium, dark-themed developer portfolio website built using **React, Vite, and Vanilla CSS** with smooth animations and modular components.
 
 🔗 **Live:** [codexgamerz.github.io](https://codexgamerz.github.io)
 
@@ -13,13 +13,12 @@ A premium, dark-themed developer portfolio built with **zero dependencies** — 
 | 🌑 **Dark Glassmorphism** | Deep obsidian dark theme with layered glass cards, ambient purple/teal/pink glows, and subtle grid overlay |
 | 🎠 **Sideways Sliding Carousels** | Projects & interests slide sideways card-by-card in a continuous flex track, featuring dynamic pagination dots, swipe gestures, resize auto-clamping, and autoplay hover guards |
 | ✨ **Cursor Glow** | A soft radial glow follows the mouse cursor with lerp-smoothed tracking (desktop only) |
-| 📊 **Animated Counters** | Stats count up with eased animations when they scroll into view |
+| 📊 **Dynamic Counters** | Stats count up with eased animations when they scroll into view, pulling project lengths dynamically |
 | 🔄 **Scroll Reveal** | Intersection Observer–powered staggered fade-in reveals across all sections |
-| 📱 **Fully Responsive** | Fluid layouts from mobile to ultrawide with hamburger nav and adaptive columns (3 on desktop, 2 on tablet, 1 on mobile) |
+| 📱 **Fully Responsive** | Fluid layouts from mobile to ultrawide with hamburger nav and adaptive columns |
 | 🎨 **Modern Typography** | Outfit (headings), Inter (body), and JetBrains Mono (code/tags) via Google Fonts |
-| 🖱️ **Micro-Animations** | Top edge RGB bars, title text gradients, hover lift transitions, icon tilts, shine sweeps, heartbeat footer, and spring-eased micro-interactions |
+| 🖱️ **Micro-Animations** | Glowing brand developer SVG code brackets icon, hover lift transitions, icon tilts, shine sweeps, heartbeat footer, and spring-eased micro-interactions |
 | 🔗 **Active Nav Tracking** | Navigation links highlight based on current scroll position |
-| 🌊 **Parallax Shapes** | Floating gradient orbs in the hero drift on scroll for depth |
 
 ---
 
@@ -27,8 +26,15 @@ A premium, dark-themed developer portfolio built with **zero dependencies** — 
 
 ```
 CodexGamerz.github.io/
-├── index.html      ← Full portfolio (semantic HTML5, inline SVG icons, embedded JS)
-├── style.css       ← Complete design system (CSS custom properties, keyframes, responsive)
+├── docs/           ← Production-built assets (HTML, CSS, JS) served on GitHub Pages
+├── public/         ← Static public assets (icons, images)
+├── src/            ← React source code
+│   ├── components/ ← Modular UI components (Navbar, Hero, About, Carousel, TechStack, Contact, Footer)
+│   ├── hooks/      ← Custom React hooks (useCursorGlow, useIntersectionObserver, useCountUp)
+│   ├── App.jsx     ← Main app view and projects configuration array
+│   └── index.css   ← Premium CSS variables, styling framework, and keyframe animations
+├── index.html      ← Entry template
+├── package.json    ← Scripts and dependencies
 └── README.md       ← You are here
 ```
 
@@ -36,22 +42,21 @@ CodexGamerz.github.io/
 
 ## 🚀 Sections
 
-1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons
-2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + animated stat counters
-3. **Projects** — 16 featured builds in a smooth sideways sliding carousel with auto-play and hover pause
+1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons alongside interactive command terminal
+2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (18+ Projects Built, 8+ Live Demos)
+3. **Projects** — 18 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
 4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
 5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
-6. **Contact** — GitHub & Instagram cards with signature quote
+6. **Contact** — GitHub & Instagram cards with signature quote and responsive metrics cards
 
 ---
 
 ## 🛠️ Tech Used
 
-- **HTML5** — Semantic structure, SVG icons, Open Graph meta
-- **CSS3** — Custom properties, glassmorphism, `backdrop-filter`, CSS Grid, Flexbox, keyframes
-- **Vanilla JS** — Intersection Observer, `requestAnimationFrame` cursor tracking, carousel engine, counter animations
-
-**No frameworks. No build step. No npm. Just code.**
+- **React** — Component-driven architecture, state management, hooks
+- **Vite** — High-performance frontend bundler
+- **CSS3** — Custom variables, backdrop filters, CSS Grid, Flexbox, custom animations
+- **JavaScript** — Intersection Observer, `requestAnimationFrame` cursor tracking, responsive carousel calculations
 
 ---
 
@@ -59,22 +64,24 @@ CodexGamerz.github.io/
 
 | # | Project | Type | Links |
 |---|---------|------|-------|
-| 1 | **LogicScope** — VS Code extension for real-time control flow, UML class diagrams, and recursion tree visualizations | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LogicScope) |
-| 2 | **scaffold-agent-skill** — Interactive CLI scaffolding utility to generate AI agent skills, plugins, and server stubs for Claude Code, OpenAI Custom GPTs, OpenClaw, and Gemini ADK | Dev Tool / CLI | [Repo](https://github.com/CODExGAMERZ/create-agent-skill) |
-| 3 | **DataMind AI** — Secure native Android platform for AI research paper summaries, smart dataset profiling, auto-EDA, and interview prep | AI / ML | [Repo](https://github.com/CODExGAMERZ/DataMind-ai) |
-| 4 | **DataPrism** — Offline VS Code extension for dataset exploration & quality profiling | Dev Tool | [Repo](https://github.com/CODExGAMERZ/DataPrism) |
-| 5 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) |
-| 6 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
-| 7 | **Code Autocomplete LLM** — GPT decoder from scratch | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
-| 8 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
-| 9 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
-| 10 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
-| 11 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
-| 12 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
-| 13 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
-| 14 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
-| 15 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
-| 16 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
+| 1 | **LogicScope** — VS Code extension rendering real-time DSA recursion trees, Mermaid.js flowcharts, and UML class hierarchies | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LogicScope) · [Demo](https://logicscope.vercel.app/) |
+| 2 | **LinguistReport** — Advanced NLP linguistic text profiler (human vs. AI text) and publication-quality Word (.docx) report generator | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LinguistReport) |
+| 3 | **scaffold-agent-skill** — Interactive CLI scaffolding utility to generate AI agent skills, plugins, and server stubs for Claude, OpenAI, and Gemini | Dev Tool / CLI | [Repo](https://github.com/CODExGAMERZ/create-agent-skill) |
+| 4 | **DataMind AI** — Client-first Android app for research paper summarization and gamified stats sync using Jetpack Compose and Supabase | AI / ML | [Repo](https://github.com/CODExGAMERZ/DataMind-ai) |
+| 5 | **SentinelRAG** — Local-first hybrid RAG CLI and Python engine indexing local Markdown/PDF files with LangGraph orchestration and Qdrant | AI / ML | [Repo](https://github.com/CODExGAMERZ/SentinelRAG) |
+| 6 | **DataPrism** — Offline VS Code extension for dataset exploration & quality profiling | Dev Tool | [Repo](https://github.com/CODExGAMERZ/DataPrism) · [Demo](https://dataprismext.vercel.app/) |
+| 7 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) · [Demo](https://modelsight.vercel.app/) |
+| 8 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
+| 9 | **Code Autocomplete LLM** — GPT decoder from scratch | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
+| 10 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
+| 11 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
+| 12 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
+| 13 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
+| 14 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
+| 15 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
+| 16 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
+| 17 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
+| 18 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
 
 ---
 
