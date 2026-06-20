@@ -1,14 +1,50 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+
+const TIER_CONFIGS = {
+  high: { maxNodes: 400, maxConnections: 650, attraction: true, pixelRatioCap: 2 },
+  mid: { maxNodes: 200, maxConnections: 300, attraction: true, pixelRatioCap: 2 },
+  low: { maxNodes: 90, maxConnections: 110, attraction: false, pixelRatioCap: 1 }
+};
 
 export default function ThreeBackground() {
   const containerRef = useRef(null);
 
+  // Synchronous initial fallback check to prevent mounting WebGL if unsupported or prefers-reduced-data matches
+  const [useFallback] = useState(() => {
+    try {
+      const prefersReducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches;
+      if (prefersReducedData) return true;
+
+      const canvas = document.createElement('canvas');
+      const hasWebGL = !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('webgl2')));
+      return !hasWebGL;
+    } catch (e) {
+      return true;
+    }
+  });
+
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (useFallback || !containerRef.current) return;
 
     // Accessibility check: prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Input check: coarse pointer (touch device)
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    // Determine initial capability tier
+    let tier = 'mid';
+    const concurrency = navigator.hardwareConcurrency || 4;
+    // Safe feature detection for deviceMemory (absent in iOS Safari)
+    const memory = navigator.deviceMemory;
+
+    if (concurrency <= 4 || (memory !== undefined && memory <= 4)) {
+      tier = 'low';
+    } else if (window.innerWidth >= 1024 && !isCoarsePointer) {
+      tier = 'high';
+    }
+    
+    let config = TIER_CONFIGS[tier];
 
     let renderer;
     try {
@@ -18,7 +54,7 @@ export default function ThreeBackground() {
         powerPreference: 'high-performance',
       });
     } catch (e) {
-      console.warn('WebGL not supported');
+      console.warn('WebGL initialization failed');
       return;
     }
 
@@ -35,7 +71,7 @@ export default function ThreeBackground() {
 
     // Configure Renderer
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, config.pixelRatioCap));
     container.appendChild(renderer.domElement);
 
     // Create soft circular texture dynamically for nodes
@@ -60,26 +96,25 @@ export default function ThreeBackground() {
     const plexusGroup = new THREE.Group();
     scene.add(plexusGroup);
 
-    // Configuration for a tall, page-spanning plexus network
-    const maxNodes = 400;
-    const maxConnections = 650;
+    // Allocate buffers based on maximum potential node density (high tier capacity)
+    const maxNodesCap = TIER_CONFIGS.high.maxNodes;
+    const maxConnectionsCap = TIER_CONFIGS.high.maxConnections;
     const connectionDistance = 7.0;
 
     // Generate Nodes
     const nodes = [];
-    const nodePositions = new Float32Array(maxNodes * 3);
-    const nodeColors = new Float32Array(maxNodes * 3);
+    const nodePositions = new Float32Array(maxNodesCap * 3);
+    const nodeColors = new Float32Array(maxNodesCap * 3);
 
     const colorIndigo = new THREE.Color('#6366f1');
     const colorTeal = new THREE.Color('#14b8a6');
     const colorPink = new THREE.Color('#ec4899');
     const colorsList = [colorIndigo, colorTeal, colorPink];
 
-    // Center Y at -70, spanning from -190 to +50 (covers up to 4500px scroll depth)
     const centerY = -70;
     const spanY = 240;
 
-    for (let i = 0; i < maxNodes; i++) {
+    for (let i = 0; i < maxNodesCap; i++) {
       const x = (Math.random() - 0.5) * 55;
       const y = (Math.random() - 0.5) * spanY + centerY;
       const z = (Math.random() - 0.5) * 45;
@@ -95,7 +130,6 @@ export default function ThreeBackground() {
       nodePositions[i * 3 + 1] = y;
       nodePositions[i * 3 + 2] = z;
 
-      // Assign palette color
       const mixColor = colorsList[Math.floor(Math.random() * colorsList.length)];
       nodeColors[i * 3] = mixColor.r;
       nodeColors[i * 3 + 1] = mixColor.g;
@@ -122,8 +156,8 @@ export default function ThreeBackground() {
 
     // Create Line Segments for connection plexus lines
     const lineGeometry = new THREE.BufferGeometry();
-    const linePositions = new Float32Array(maxConnections * 2 * 3);
-    const lineColors = new Float32Array(maxConnections * 2 * 3);
+    const linePositions = new Float32Array(maxConnectionsCap * 2 * 3);
+    const lineColors = new Float32Array(maxConnectionsCap * 2 * 3);
 
     lineGeometry.setAttribute('position', new THREE.BufferAttribute(linePositions, 3));
     lineGeometry.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
@@ -139,6 +173,9 @@ export default function ThreeBackground() {
     const plexusLines = new THREE.LineSegments(lineGeometry, lineMaterial);
     plexusGroup.add(plexusLines);
 
+    // Set the initial geometry draw range based on current tier configuration
+    nodeGeometry.setDrawRange(0, config.maxNodes);
+
     // Track scroll and cursor inputs
     let mouseX = 0;
     let mouseY = 0;
@@ -147,7 +184,7 @@ export default function ThreeBackground() {
     let scrollY = window.scrollY;
     let targetScrollY = window.scrollY;
 
-    const handleMouseMove = (e) => {
+    const handlePointerMove = (e) => {
       targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
       targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
     };
@@ -157,37 +194,94 @@ export default function ThreeBackground() {
     };
 
     if (!prefersReducedMotion) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
+    // Debounced Resize and orientation handler
+    let resizeTimeout;
     const handleResize = () => {
-      if (!containerRef.current) return;
-      const w = container.clientWidth;
-      const h = container.clientHeight;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (!containerRef.current) return;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
 
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-      
-      // If motion is reduced, render static scene on resize
-      if (prefersReducedMotion) {
-        renderer.render(scene, camera);
-      }
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        
+        if (prefersReducedMotion) {
+          renderer.render(scene, camera);
+        }
+      }, 150);
     };
-    window.addEventListener('resize', handleResize);
 
-    // Animation Loop Variables
+    const handleOrientationChange = () => {
+      handleResize();
+    };
+
+    const viewport = window.visualViewport;
+    if (viewport) {
+      viewport.addEventListener('resize', handleResize);
+    } else {
+      window.addEventListener('resize', handleResize);
+    }
+
+    if (window.screen && window.screen.orientation) {
+      window.screen.orientation.addEventListener('change', handleOrientationChange);
+    } else {
+      window.addEventListener('orientationchange', handleOrientationChange);
+    }
+
+    // Animation Loop Control
     let animationFrameId;
     const clock = new THREE.Clock();
-    let isRunning = !prefersReducedMotion;
+    let isRunning = false;
+    let isTabVisible = !document.hidden;
+    let isElementVisible = true;
 
-    // Spatial partitioning grid bucketing settings
+    // Spatial partitioning grid setting
     const cellSize = connectionDistance;
+
+    // Performance Boot Monitoring Variables
+    let frameTimes = [];
+    let bootChecked = false;
+    let lastFrameTime = 0;
+
+    const downgradeTier = () => {
+      if (tier === 'high') {
+        tier = 'mid';
+        config = TIER_CONFIGS.mid;
+      } else if (tier === 'mid') {
+        tier = 'low';
+        config = TIER_CONFIGS.low;
+        renderer.setPixelRatio(config.pixelRatioCap);
+      }
+      nodeGeometry.setDrawRange(0, config.maxNodes);
+      console.warn(`[ThreeBackground] Performance degraded. Downgraded to: ${tier} tier.`);
+    };
 
     const animate = () => {
       if (!isRunning) return;
       animationFrameId = requestAnimationFrame(animate);
+
+      // Perform a frame timing boot check to evaluate real GPU capability
+      if (!bootChecked) {
+        const now = performance.now();
+        if (lastFrameTime > 0) {
+          const delta = now - lastFrameTime;
+          frameTimes.push(delta);
+          if (frameTimes.length >= 30) {
+            bootChecked = true;
+            const slowFrames = frameTimes.filter(t => t > 33.3).length; // >33.3ms is <30fps
+            if (slowFrames >= 8) {
+              downgradeTier();
+            }
+          }
+        }
+        lastFrameTime = now;
+      }
 
       const elapsedTime = clock.getElapsedTime();
 
@@ -196,18 +290,18 @@ export default function ThreeBackground() {
       mouseY += (targetMouseY - mouseY) * 0.05;
       scrollY += (targetScrollY - scrollY) * 0.06;
 
-      // Slowly rotate the plexus
+      // Auto-rotation and camera travel (Only enabled when reduced motion is disabled)
       plexusGroup.rotation.y = elapsedTime * 0.02 + scrollY * 0.0001;
       plexusGroup.rotation.x = elapsedTime * 0.008;
 
-      // Map scrollY to camera position: camera moves down as user scrolls down
       const cameraY = -scrollY * 0.038;
       camera.position.y = cameraY;
       camera.position.x = mouseX * 2.5;
 
       // Update Node positions (Drift inside boundary box)
+      const currentMaxNodes = config.maxNodes;
       const nodePosArray = nodeGeometry.attributes.position.array;
-      for (let i = 0; i < maxNodes; i++) {
+      for (let i = 0; i < currentMaxNodes; i++) {
         const node = nodes[i];
         
         node.x += node.vx;
@@ -220,8 +314,6 @@ export default function ThreeBackground() {
 
         if (Math.abs(node.x) > boundaryX) node.vx *= -1;
         if (Math.abs(node.z) > boundaryZ) node.vz *= -1;
-
-        // Bounce relative to the center Y coordinate
         if (Math.abs(node.y - centerY) > halfSpanY) node.vy *= -1;
 
         nodePosArray[i * 3] = node.x;
@@ -230,9 +322,9 @@ export default function ThreeBackground() {
       }
       nodeGeometry.attributes.position.needsUpdate = true;
 
-      // SPATIAL PARTITIONING (Grid Bucketing) to achieve O(N) connections pass
+      // Spatial partitioning grid bucketing for connection check
       const grid = {};
-      for (let i = 0; i < maxNodes; i++) {
+      for (let i = 0; i < currentMaxNodes; i++) {
         const node = nodes[i];
         const cx = Math.floor(node.x / cellSize);
         const cy = Math.floor(node.y / cellSize);
@@ -249,13 +341,10 @@ export default function ThreeBackground() {
       let vertexIdx = 0;
       let colorIdx = 0;
       let connectionCount = 0;
-
-      // Mouse vector in local space for interactive connection lines
-      const mouse3D = new THREE.Vector3(mouseX * 25, cameraY + mouseY * 15, 0);
-      mouse3D.applyMatrix4(new THREE.Matrix4().copy(plexusGroup.matrixWorld).invert());
+      const currentMaxConnections = config.maxConnections;
 
       // Find node-to-node connections within adjacent cells in 3D grid
-      for (let i = 0; i < maxNodes; i++) {
+      for (let i = 0; i < currentMaxNodes; i++) {
         const nodeA = nodes[i];
         const cx = Math.floor(nodeA.x / cellSize);
         const cy = Math.floor(nodeA.y / cellSize);
@@ -271,7 +360,7 @@ export default function ThreeBackground() {
               for (let k = 0; k < cellNodes.length; k++) {
                 const j = cellNodes[k];
                 if (j <= i) continue; // prevent double checking or self-checks
-                if (connectionCount >= maxConnections) break;
+                if (connectionCount >= currentMaxConnections) break;
 
                 const nodeB = nodes[j];
                 const distX = nodeA.x - nodeB.x;
@@ -304,46 +393,51 @@ export default function ThreeBackground() {
         }
       }
 
-      // Check grid surrounding the mouse position to link nodes to cursor in O(1)
-      const mcx = Math.floor(mouse3D.x / cellSize);
-      const mcy = Math.floor(mouse3D.y / cellSize);
-      const mcz = Math.floor(mouse3D.z / cellSize);
+      // Cursor connection (Only if enabled in tier config and device is not a coarse touch-only pointer)
+      if (config.attraction && !isCoarsePointer) {
+        const mouse3D = new THREE.Vector3(mouseX * 25, cameraY + mouseY * 15, 0);
+        mouse3D.applyMatrix4(new THREE.Matrix4().copy(plexusGroup.matrixWorld).invert());
 
-      for (let dx = -1; dx <= 1; dx++) {
-        for (let dy = -1; dy <= 1; dy++) {
-          for (let dz = -1; dz <= 1; dz++) {
-            const key = `${mcx + dx},${mcy + dy},${mcz + dz}`;
-            const cellNodes = grid[key];
-            if (!cellNodes) continue;
+        const mcx = Math.floor(mouse3D.x / cellSize);
+        const mcy = Math.floor(mouse3D.y / cellSize);
+        const mcz = Math.floor(mouse3D.z / cellSize);
 
-            for (let k = 0; k < cellNodes.length; k++) {
-              const i = cellNodes[k];
-              if (connectionCount >= maxConnections) break;
+        for (let dx = -1; dx <= 1; dx++) {
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dz = -1; dz <= 1; dz++) {
+              const key = `${mcx + dx},${mcy + dy},${mcz + dz}`;
+              const cellNodes = grid[key];
+              if (!cellNodes) continue;
 
-              const nodeA = nodes[i];
-              const mdx = nodeA.x - mouse3D.x;
-              const mdy = nodeA.y - mouse3D.y;
-              const mdz = nodeA.z - mouse3D.z;
-              const mDistSq = mdx * mdx + mdy * mdy + mdz * mdz;
+              for (let k = 0; k < cellNodes.length; k++) {
+                const i = cellNodes[k];
+                if (connectionCount >= currentMaxConnections) break;
 
-              if (mDistSq < (connectionDistance * 1.3) * (connectionDistance * 1.3)) {
-                linePosArray[vertexIdx++] = nodeA.x;
-                linePosArray[vertexIdx++] = nodeA.y;
-                linePosArray[vertexIdx++] = nodeA.z;
+                const nodeA = nodes[i];
+                const mdx = nodeA.x - mouse3D.x;
+                const mdy = nodeA.y - mouse3D.y;
+                const mdz = nodeA.z - mouse3D.z;
+                const mDistSq = mdx * mdx + mdy * mdy + mdz * mdz;
 
-                linePosArray[vertexIdx++] = mouse3D.x;
-                linePosArray[vertexIdx++] = mouse3D.y;
-                linePosArray[vertexIdx++] = mouse3D.z;
+                if (mDistSq < (connectionDistance * 1.3) * (connectionDistance * 1.3)) {
+                  linePosArray[vertexIdx++] = nodeA.x;
+                  linePosArray[vertexIdx++] = nodeA.y;
+                  linePosArray[vertexIdx++] = nodeA.z;
 
-                lineColArray[colorIdx++] = nodeColors[i * 3];
-                lineColArray[colorIdx++] = nodeColors[i * 3 + 1];
-                lineColArray[colorIdx++] = nodeColors[i * 3 + 2];
+                  linePosArray[vertexIdx++] = mouse3D.x;
+                  linePosArray[vertexIdx++] = mouse3D.y;
+                  linePosArray[vertexIdx++] = mouse3D.z;
 
-                lineColArray[colorIdx++] = 0.03;
-                lineColArray[colorIdx++] = 0.71;
-                lineColArray[colorIdx++] = 0.83;
+                  lineColArray[colorIdx++] = nodeColors[i * 3];
+                  lineColArray[colorIdx++] = nodeColors[i * 3 + 1];
+                  lineColArray[colorIdx++] = nodeColors[i * 3 + 2];
 
-                connectionCount++;
+                  lineColArray[colorIdx++] = 0.03;
+                  lineColArray[colorIdx++] = 0.71;
+                  lineColArray[colorIdx++] = 0.83;
+
+                  connectionCount++;
+                }
               }
             }
           }
@@ -355,55 +449,80 @@ export default function ThreeBackground() {
       lineGeometry.attributes.color.needsUpdate = true;
 
       camera.lookAt(0, cameraY, 0);
-
       renderer.render(scene, camera);
     };
 
-    // VISIBILITY GATING: Pause loop when tab is hidden, resume when active
-    const startLoop = () => {
-      if (!isRunning && !prefersReducedMotion) {
-        isRunning = true;
-        clock.start();
-        animate();
-      }
-    };
-
-    const stopLoop = () => {
-      if (isRunning) {
-        isRunning = false;
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopLoop();
+    // State change checks to run or stop animation frame updates
+    const runOrStopLoop = () => {
+      const shouldRun = isTabVisible && isElementVisible && !prefersReducedMotion;
+      if (shouldRun) {
+        if (!isRunning) {
+          isRunning = true;
+          clock.start();
+          animate();
+        }
       } else {
-        startLoop();
+        if (isRunning) {
+          isRunning = false;
+          cancelAnimationFrame(animationFrameId);
+        }
       }
     };
 
+    // Tab visibility events
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      runOrStopLoop();
+    };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Initial render / Start loop
+    // Viewport Visibility Observer (Pause when element scrolls out of view)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isElementVisible = entry.isIntersecting;
+          runOrStopLoop();
+        });
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(container);
+
+    // Initial Trigger
     if (prefersReducedMotion) {
-      // Just render static scene once
+      // Setup initial camera static state
+      camera.position.set(0, centerY, 28);
+      camera.lookAt(0, centerY, 0);
       renderer.render(scene, camera);
     } else {
-      clock.start();
-      animate();
+      isElementVisible = true;
+      runOrStopLoop();
     }
 
     // Clean up
     return () => {
       isRunning = false;
       cancelAnimationFrame(animationFrameId);
+      clearTimeout(resizeTimeout);
       
-      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       
+      if (viewport) {
+        viewport.removeEventListener('resize', handleResize);
+      } else {
+        window.removeEventListener('resize', handleResize);
+      }
+
+      if (window.screen && window.screen.orientation) {
+        window.screen.orientation.removeEventListener('change', handleOrientationChange);
+      } else {
+        window.removeEventListener('orientationchange', handleOrientationChange);
+      }
+      
+      observer.disconnect();
+
       if (container && renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -415,7 +534,7 @@ export default function ThreeBackground() {
       lineMaterial.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [useFallback]);
 
-  return <div className="three-bg" ref={containerRef} />;
+  return <div className={`three-bg ${useFallback ? 'static-fallback' : ''}`} ref={containerRef} />;
 }

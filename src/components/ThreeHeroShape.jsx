@@ -1,10 +1,24 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
   const containerRef = useRef(null);
   const materialRef = useRef(null);
   const particleMaterialRef = useRef(null);
+
+  // Synchronous initial fallback check to prevent mounting WebGL if unsupported or prefers-reduced-data matches
+  const [useFallback] = useState(() => {
+    try {
+      const prefersReducedData = window.matchMedia('(prefers-reduced-data: reduce)').matches;
+      if (prefersReducedData) return true;
+
+      const canvas = document.createElement('canvas');
+      const hasWebGL = !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('webgl2')));
+      return !hasWebGL;
+    } catch (e) {
+      return true;
+    }
+  });
 
   // Sync color with active theme
   useEffect(() => {
@@ -17,10 +31,12 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
   }, [themeColor]);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (useFallback || !containerRef.current) return;
 
     // Accessibility check: prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Input check: coarse pointer (touch device)
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
 
     const container = containerRef.current;
     const width = container.clientWidth || 350;
@@ -41,6 +57,7 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
         alpha: true,
       });
     } catch (e) {
+      console.warn('WebGL initialization failed for Hero Shape');
       return;
     }
     renderer.setSize(width, height);
@@ -115,7 +132,10 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
     let pulseScale = 1.0;
     let targetPulseScale = 1.0;
 
-    const handleMouseMove = (e) => {
+    const handlePointerMove = (e) => {
+      // Ignore cursor tracking/attraction for coarse pointers (touch-only devices)
+      if (isCoarsePointer) return;
+
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
@@ -124,37 +144,58 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
       targetMouseY = -(y / rect.height) * 2;
     };
 
-    const handleClick = () => {
+    const handlePointerDown = () => {
       targetPulseScale = 1.45;
       setTimeout(() => {
         targetPulseScale = 1.0;
       }, 250);
     };
 
-    if (!prefersReducedMotion) {
-      container.addEventListener('mousemove', handleMouseMove);
-      container.addEventListener('click', handleClick);
+    container.addEventListener('pointermove', handlePointerMove, { passive: true });
+    container.addEventListener('pointerdown', handlePointerDown, { passive: true });
+
+    // Debounced Resize and orientation handler
+    let resizeTimeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (!containerRef.current) return;
+        const w = container.clientWidth || 350;
+        const h = container.clientHeight || 350;
+
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+
+        if (prefersReducedMotion) {
+          renderer.render(scene, camera);
+        }
+      }, 150);
+    };
+
+    const handleOrientationChange = () => {
+      handleResize();
+    };
+
+    const viewport = window.visualViewport;
+    if (viewport) {
+      viewport.addEventListener('resize', handleResize);
+    } else {
+      window.addEventListener('resize', handleResize);
     }
 
-    const handleResize = () => {
-      if (!containerRef.current) return;
-      const w = container.clientWidth || 350;
-      const h = container.clientHeight || 350;
-
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-
-      if (prefersReducedMotion) {
-        renderer.render(scene, camera);
-      }
-    };
-    window.addEventListener('resize', handleResize);
+    if (window.screen && window.screen.orientation) {
+      window.screen.orientation.addEventListener('change', handleOrientationChange);
+    } else {
+      window.addEventListener('orientationchange', handleOrientationChange);
+    }
 
     // Animation Loop Settings
     let animationFrameId;
     const clock = new THREE.Clock();
-    let isRunning = !prefersReducedMotion;
+    let isRunning = false;
+    let isTabVisible = !document.hidden;
+    let isElementVisible = true;
 
     const animate = () => {
       if (!isRunning) return;
@@ -188,47 +229,73 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
       renderer.render(scene, camera);
     };
 
-    // VISIBILITY GATING: Pause when hidden
-    const startLoop = () => {
-      if (!isRunning && !prefersReducedMotion) {
-        isRunning = true;
-        clock.start();
-        animate();
-      }
-    };
-
-    const stopLoop = () => {
-      if (isRunning) {
-        isRunning = false;
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopLoop();
+    // State change checks to run or stop animation updates
+    const runOrStopLoop = () => {
+      const shouldRun = isTabVisible && isElementVisible && !prefersReducedMotion;
+      if (shouldRun) {
+        if (!isRunning) {
+          isRunning = true;
+          clock.start();
+          animate();
+        }
       } else {
-        startLoop();
+        if (isRunning) {
+          isRunning = false;
+          cancelAnimationFrame(animationFrameId);
+        }
       }
+    };
+
+    // Visibility events
+    const handleVisibilityChange = () => {
+      isTabVisible = !document.hidden;
+      runOrStopLoop();
     };
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Initial render
+    // Viewport Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isElementVisible = entry.isIntersecting;
+          runOrStopLoop();
+        });
+      },
+      { threshold: 0.05 }
+    );
+    observer.observe(container);
+
+    // Initial Trigger
     if (prefersReducedMotion) {
       renderer.render(scene, camera);
     } else {
-      clock.start();
-      animate();
+      isElementVisible = true;
+      runOrStopLoop();
     }
 
     // Clean up
     return () => {
       isRunning = false;
       cancelAnimationFrame(animationFrameId);
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('click', handleClick);
-      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
+      
+      container.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('pointerdown', handlePointerDown);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      
+      if (viewport) {
+        viewport.removeEventListener('resize', handleResize);
+      } else {
+        window.removeEventListener('resize', handleResize);
+      }
+
+      if (window.screen && window.screen.orientation) {
+        window.screen.orientation.removeEventListener('change', handleOrientationChange);
+      } else {
+        window.removeEventListener('orientationchange', handleOrientationChange);
+      }
+      
+      observer.disconnect();
 
       if (container && renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
@@ -243,7 +310,40 @@ export default function ThreeHeroShape({ themeColor = '#06b6d4' }) {
       ringMat.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [useFallback]);
+
+  if (useFallback) {
+    return (
+      <div 
+        className="three-hero-visual" 
+        style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+      >
+        <svg viewBox="0 0 100 100" className="three-hero-fallback-svg" style={{ width: '100%', height: '100%', maxWidth: '280px' }}>
+          <defs>
+            <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={themeColor} />
+              <stop offset="100%" stopColor="#6366f1" />
+            </linearGradient>
+            <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3.5" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <ellipse cx="50" cy="50" rx="40" ry="15" fill="none" stroke={themeColor} strokeWidth="0.75" opacity="0.3" transform="rotate(-30 50 50)" />
+          <path d="M50,20 Q65,25 75,35 T80,50 T70,65 T50,80 T30,65 T20,50 T35,35 Z" fill="none" stroke="url(#glowGrad)" strokeWidth="2" filter="url(#neonGlow)" />
+          <path d="M50,25 Q60,30 68,38 T72,50 T64,62 T50,75 T36,62 T28,50 T38,38 Z" fill="none" stroke="url(#glowGrad)" strokeWidth="0.75" strokeDasharray="1.5,1.5" opacity="0.6" />
+          <circle cx="50" cy="50" r="10" fill="none" stroke="url(#glowGrad)" strokeWidth="1" opacity="0.8" />
+          <circle cx="50" cy="50" r="2" fill="#fff" filter="url(#neonGlow)" />
+          <circle cx="46" cy="46" r="1" fill={themeColor} />
+          <circle cx="54" cy="54" r="0.8" fill="#6366f1" />
+          <circle cx="48" cy="55" r="0.8" fill="#ec4899" />
+        </svg>
+      </div>
+    );
+  }
 
   return (
     <div 
