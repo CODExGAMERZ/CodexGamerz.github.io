@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 
 import useCursorGlow from './hooks/useCursorGlow';
 import useIntersectionObserver from './hooks/useIntersectionObserver';
+import ThreeBackground from './components/ThreeBackground';
+import use3DTilt from './hooks/use3DTilt';
 
 import {
   CodeScopeIcon,
@@ -52,8 +54,9 @@ function ExternalIcon() {
 }
 
 function ProjectCard({ project }) {
+  const cardRef = use3DTilt(8, 1.02);
   return (
-    <div className="project-card" data-category={project.category}>
+    <div ref={cardRef} className="project-card" data-category={project.category}>
       <div className="project-card__icon">{project.icon}</div>
       <h3 className="project-card__title">{project.title}</h3>
       <p className="project-card__desc">{project.desc}</p>
@@ -87,8 +90,9 @@ function ProjectCard({ project }) {
 }
 
 function InterestCard({ interest }) {
+  const cardRef = use3DTilt(10, 1.03);
   return (
-    <div className="interest-card">
+    <div ref={cardRef} className="interest-card">
       <div className="interest-card__icon">{interest.icon}</div>
       <h3 className="interest-card__title">{interest.title}</h3>
       <p className="interest-card__desc">{interest.desc}</p>
@@ -438,6 +442,9 @@ export default function App() {
 
   return (
     <>
+      {/* 3D WebGL Cosmic Background */}
+      <ThreeBackground />
+
       {/* Cursor glow */}
       <div className="cursor-glow" id="cursorGlow" ref={glowRef}></div>
 

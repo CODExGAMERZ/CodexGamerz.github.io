@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import Terminal from './Terminal';
+import ThreeHeroShape from './ThreeHeroShape';
 
 export default function Hero({ projects = [] }) {
+  const [themeColor, setThemeColor] = useState('#06b6d4');
+
   return (
     <section className="hero" id="hero">
       <div className="container hero-container">
@@ -36,8 +40,13 @@ export default function Hero({ projects = [] }) {
           </div>
         </div>
 
-        <div className="hero-terminal-wrapper">
-          <Terminal projects={projects} />
+        <div className="hero-visual-container">
+          <div className="hero-3d-model-wrapper">
+            <ThreeHeroShape themeColor={themeColor} />
+          </div>
+          <div className="hero-terminal-wrapper">
+            <Terminal projects={projects} onThemeChange={setThemeColor} />
+          </div>
         </div>
       </div>
 

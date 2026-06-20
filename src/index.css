@@ -94,6 +94,11 @@ body {
   position: relative;
 }
 
+#root {
+  position: relative;
+  z-index: 1;
+}
+
 /* Smooth page load */
 body.loading * {
   animation-duration: 0s !important;
@@ -138,7 +143,7 @@ img { max-width: 100%; display: block; }
 .bg-grid {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
@@ -150,7 +155,7 @@ img { max-width: 100%; display: block; }
 
 .bg-glow {
   position: fixed;
-  z-index: 0;
+  z-index: -2;
   pointer-events: none;
   border-radius: 50%;
   filter: blur(140px);
@@ -1808,4 +1813,119 @@ footer .heart {
   padding: 0.55rem 1.1rem;
   font-size: 0.78rem;
   border-radius: 10px;
-}
+}
+
+/* ============================================
+   3D ANIMATION AND THREE.JS INTEGRATION
+   ============================================ */
+
+/* 3D Cosmic Background Canvas */
+.three-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Darkening mask on top of the 3D particles to ensure text readability */
+.three-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(9, 9, 11, 0.78) 0%, rgba(9, 9, 11, 0.45) 100%);
+  pointer-events: none;
+}
+
+/* Hero 3D Layout & Hologram */
+.hero-visual-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-3d-model-wrapper {
+  position: absolute;
+  top: -200px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  z-index: 10;
+  pointer-events: auto;
+  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.2));
+  animation: floatHologram 6s ease-in-out infinite;
+}
+
+/* Floating animation for 3D Hologram */
+@keyframes floatHologram {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.02);
+  }
+}
+
+/* Card 3D Tilt Setup */
+.project-card,
+.interest-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Push elements inside cards out in 3D */
+.project-card__icon,
+.interest-card__icon {
+  transform: translateZ(40px);
+  transition: transform 0.3s ease;
+}
+
+.project-card__title,
+.interest-card__title {
+  transform: translateZ(30px);
+  transition: transform 0.3s ease;
+}
+
+.project-card__desc,
+.interest-card__desc {
+  transform: translateZ(20px);
+  transition: transform 0.3s ease;
+}
+
+.project-card__tags,
+.project-card__links {
+  transform: translateZ(25px);
+  transition: transform 0.3s ease;
+}
+
+/* Make sure container doesn't crop 3D content */
+.carousel__track {
+  transform-style: preserve-3d;
+}
+
+/* Responsive adjustments for 3D elements */
+@media (max-width: 1024px) {
+  .hero-3d-model-wrapper {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    margin-top: 1rem;
+    margin-bottom: -2rem;
+    order: -1; /* Place 3D model above terminal on mobile */
+  }
+  
+  .hero-visual-container {
+    gap: 1rem;
+  }
+}
+

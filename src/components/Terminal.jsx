@@ -8,7 +8,7 @@ const COLOR_THEMES = {
   white: '#e2e8f0'
 };
 
-export default function Terminal({ projects = [] }) {
+export default function Terminal({ projects = [], onThemeChange }) {
   const [input, setInput] = useState('');
   const [theme, setTheme] = useState('cyan');
   const [history, setHistory] = useState([
@@ -112,6 +112,9 @@ export default function Terminal({ projects = [] }) {
           if (COLOR_THEMES[arg]) {
             setTheme(arg);
             outputs = [`Terminal theme changed to ${arg}.`];
+            if (onThemeChange) {
+              onThemeChange(COLOR_THEMES[arg]);
+            }
           } else {
             outputs = [
               `Unknown theme: ${arg}`,
