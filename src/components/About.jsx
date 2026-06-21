@@ -38,6 +38,16 @@ export default function About({ projects = [] }) {
   ];
 
   const liveDemosCount = projects.filter(p => p.links?.some(l => l.isDemo)).length;
+  
+  const aiMlSystemsCount = projects.filter(p => 
+    p.category === 'ai' || 
+    p.tags?.some(t => 
+      ['ai', 'ml', 'nlp', 'learning', 'transformer', 'ollama', 'gemini', 'claude', 'openai'].some(k => t.toLowerCase().includes(k))
+    ) ||
+    p.desc?.toLowerCase().includes('ai') || 
+    p.desc?.toLowerCase().includes('llm') || 
+    p.desc?.toLowerCase().includes('machine learning')
+  ).length;
 
   return (
     <section id="about">
@@ -71,7 +81,7 @@ export default function About({ projects = [] }) {
 
           <div className="stats-strip stagger-children">
             <StatCard label="Projects Built" countTarget={projects.length} />
-            <StatCard label="AI / ML Systems" countTarget={10} />
+            <StatCard label="AI / ML Systems" countTarget={aiMlSystemsCount} />
             <StatCard label="Live Demos" countTarget={liveDemosCount} />
           </div>
         </div>
