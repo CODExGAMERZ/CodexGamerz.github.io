@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Unified SVG container props
 const defaultProps = {
