@@ -72,7 +72,7 @@ CodexGamerz.github.io/
 | 6 | **DataPrism** — Offline VS Code extension for dataset exploration & quality profiling | Dev Tool | [Repo](https://github.com/CODExGAMERZ/DataPrism) · [Demo](https://dataprismext.vercel.app/) |
 | 7 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) · [Demo](https://modelsight.vercel.app/) |
 | 8 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
-| 9 | **Code Autocomplete LLM** — GPT decoder from scratch | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
+| 9 | **Code Autocomplete LLM** — Multilingual GPT decoder (Python/C/Java) with GPU support | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
 | 10 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
 | 11 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
 | 12 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |

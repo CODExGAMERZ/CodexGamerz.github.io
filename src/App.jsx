@@ -246,13 +246,13 @@ export default function App() {
       icon: <MindIcon />,
       title: "Code Autocomplete LLM",
       category: "ai",
-      desc: "A GPT-style autoregressive Transformer trained from scratch for Python code autocompletion.",
+      desc: "A GPT-style autoregressive Transformer trained from scratch for multilingual code autocompletion (Python, C, Java) with GPU support.",
       features: [
-        "True GPT Decoder with causal self-attention & masking",
-        "KV-Cache for O(1) step incremental decoding",
-        "Resume-safe checkpoint system with interrupt recovery"
+        "Expanded support for Python, C, and Java codebases (~38.7M training tokens)",
+        "True GPT Decoder with causal self-attention, KV-cache, and GPU acceleration",
+        "Google Colab / Kaggle integration and VS Code extension embedding architecture"
       ],
-      tags: ["PyTorch", "Tokenizers", "Deep Learning", "Transformers"],
+      tags: ["PyTorch", "Transformers", "GPU Acceleration", "Multilingual", "Deep Learning"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/Code-AutoComplete-LLM", id: "link-autocomplete" }
       ]
