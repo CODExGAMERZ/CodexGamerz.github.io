@@ -24,7 +24,8 @@ import {
   LayersIcon,
   ZapIcon,
   ReportIcon,
-  ShieldIcon
+  ShieldIcon,
+  KeyCodeIcon
 } from './components/Icons';
 
 // ===== SUB-COMPONENTS =====
@@ -741,6 +742,21 @@ export default function App() {
       tags: ["Python", "Flask", "JavaScript", "Ollama", "flake8"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/Python-Code-Assistant", id: "link-py-assistant" }
+      ]
+    },
+    {
+      icon: <KeyCodeIcon />,
+      title: "KeyCode",
+      category: "devtool",
+      desc: "A custom high-performance fork of VS Code (Code - OSS) built for Windows with an integrated local AI autocomplete extension.",
+      features: [
+        "Built-in KeyCode Ollama Autocomplete extension for zero-config offline inline completions",
+        "Intelligent Fill-in-the-Middle (FIM) prompt generation supporting Qwen and DeepSeek models",
+        "Custom status bar controls, quick-pick model selection, debounced requests, and local telemetry channels"
+      ],
+      tags: ["TypeScript", "Node.js", "Electron", "VS Code Fork", "Ollama", "Local AI"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/KeyCode", id: "link-keycode" }
       ]
     },
     {

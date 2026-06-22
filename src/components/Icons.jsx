@@ -236,4 +236,14 @@ export function ShieldIcon(props) {
     </svg>
   );
 }
-
+export function KeyCodeIcon(props) {
+  return (
+    <svg {...defaultProps} {...props}>
+      <rect x="2" y="3" width="20" height="14" rx="2" />
+      <path d="M6 21h12" />
+      <path d="M12 17v4" />
+      <path d="m10 7-3 3 3 3" />
+      <path d="m14 13 3-3-3-3" />
+    </svg>
+  );
+}

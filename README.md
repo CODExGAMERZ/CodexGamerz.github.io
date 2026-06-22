@@ -76,12 +76,13 @@ CodexGamerz.github.io/
 | 10 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
 | 11 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
 | 12 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
-| 13 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
-| 14 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
-| 15 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
-| 16 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
-| 17 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
-| 18 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
+| 13 | **KeyCode** — Custom VS Code fork built for Windows with local Ollama autocomplete | Dev Tool | [Repo](https://github.com/CODExGAMERZ/KeyCode) |
+| 14 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
+| 15 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
+| 16 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
+| 17 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
+| 18 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
+| 19 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
 
 ---
 
