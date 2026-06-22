@@ -43,8 +43,8 @@ CodexGamerz.github.io/
 ## 🚀 Sections
 
 1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons alongside interactive command terminal
-2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (18+ Projects Built, 8+ Live Demos)
-3. **Projects** — 18 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
+2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (19+ Projects Built, 8+ Live Demos)
+3. **Projects** — 19 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
 4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
 5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
 6. **Contact** — GitHub & Instagram cards with signature quote and responsive metrics cards
