@@ -43,8 +43,8 @@ CodexGamerz.github.io/
 ## 🚀 Sections
 
 1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons alongside interactive command terminal
-2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (19+ Projects Built, 8+ Live Demos)
-3. **Projects** — 19 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
+2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (20+ Projects Built, 9+ Live Demos)
+3. **Projects** — 20 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
 4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
 5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
 6. **Contact** — GitHub & Instagram cards with signature quote and responsive metrics cards
@@ -77,12 +77,13 @@ CodexGamerz.github.io/
 | 11 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
 | 12 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
 | 13 | **KeyCode** — Custom VS Code fork built for Windows with local Ollama autocomplete | Dev Tool | [Repo](https://github.com/CODExGAMERZ/KeyCode) |
-| 14 | **VoltC** — Native desktop C/C++ IDE with landing showcase website | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) · [Demo](https://volt-c.vercel.app/) |
-| 15 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
-| 16 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
-| 17 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
-| 18 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
-| 19 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
+| 14 | **VoltC** — Native desktop C/C++ IDE built for Ubuntu Linux | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) |
+| 15 | **VoltC Showcase Website** — Obsidian glassmorphism landing page with in-browser IDE simulator | Web App | [Repo](https://github.com/CODExGAMERZ/VoltC-Website) · [Demo](https://volt-c.vercel.app/) |
+| 16 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
+| 17 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
+| 18 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
+| 19 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
+| 20 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
 
 ---
 

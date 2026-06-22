@@ -763,16 +763,31 @@ export default function App() {
       icon: <VoltIcon />,
       title: "VoltC",
       category: "devtool",
-      desc: "A native desktop C/C++ IDE for Ubuntu Linux, showcased via an interactive web simulator landing page.",
+      desc: "A native desktop C/C++ IDE for Ubuntu Linux built to optimize the local compile-and-debug lifecycle.",
       features: [
         "Main Product: Native Ubuntu desktop app built on FastAPI, Monaco Editor, and PyWebView shell",
-        "Showcase Site: Landing page featuring a mockup and interactive online IDE simulator for users",
-        "VoltC v2: AI Debug Assistant, built-in Git panel, clangd LSP, persistent PTY terminal, and memory diagrams"
+        "VoltC v2: AI Debug Assistant, built-in Git panel, clangd LSP, persistent PTY terminal, and memory diagrams",
+        "Zero-configuration local compilation gates and custom sub-process process management"
       ],
       tags: ["FastAPI", "Monaco", "Python", "C/C++", "Git", "LSP", "PyWebView"],
       links: [
-        { label: "Source Code", href: "https://github.com/CODExGAMERZ/VoltC", id: "link-voltc-repo" },
-        { label: "Live Demo", href: "https://volt-c.vercel.app/", id: "link-voltc-demo", isDemo: true }
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/VoltC", id: "link-voltc-repo" }
+      ]
+    },
+    {
+      icon: <VoltIcon />,
+      title: "VoltC Showcase Website",
+      category: "web",
+      desc: "A premium obsidian glassmorphic landing page featuring an interactive web simulator for the VoltC IDE.",
+      features: [
+        "Interactive online Monaco IDE simulator allowing users to write, compile, and run C code in-browser",
+        "High-fidelity mockup animations, layout break-downs, and custom CSS neon glow effects",
+        "Automated deployment workflows powered by GitHub Actions and Vercel hosting"
+      ],
+      tags: ["HTML5/CSS3", "JavaScript", "Monaco Editor", "Vercel", "Web Design"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/VoltC-Website", id: "link-voltc-web-repo" },
+        { label: "Live Demo", href: "https://volt-c.vercel.app/", id: "link-voltc-web-demo", isDemo: true }
       ]
     },
     {
