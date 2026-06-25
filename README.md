@@ -10,15 +10,15 @@ A premium, dark-themed developer portfolio website built using **React, Vite, an
 
 | Feature | Description |
 |---|---|
-| 🌑 **Dark Glassmorphism** | Deep obsidian dark theme with layered glass cards, ambient purple/teal/pink glows, and subtle grid overlay |
-| 🎠 **Sideways Sliding Carousels** | Projects & interests slide sideways card-by-card in a continuous flex track, featuring dynamic pagination dots, swipe gestures, resize auto-clamping, and autoplay hover guards |
-| ✨ **Cursor Glow** | A soft radial glow follows the mouse cursor with lerp-smoothed tracking (desktop only) |
-| 📊 **Dynamic Counters** | Stats count up with eased animations when they scroll into view, pulling project lengths dynamically |
+| 🌑 **Dark Glassmorphism** | Deep obsidian dark theme with layered glass cards, ambient dark-red glows, and subtle grid overlays |
+| 🗂️ **Responsive Grid & Toggle** | Projects grid initially showing exactly 3 featured cards with a smooth "Show More" / "Show Less" toggle to view the full list |
+| 📊 **Dynamic Counters** | Stats count up with eased animations when they scroll into view, pulling project lengths and GitHub API stats dynamically |
 | 🔄 **Scroll Reveal** | Intersection Observer–powered staggered fade-in reveals across all sections |
-| 📱 **Fully Responsive** | Fluid layouts from mobile to ultrawide with hamburger nav and adaptive columns |
+| 📱 **Flexible & Responsive** | Fluid, responsive layouts built for all screen sizes (from 375px mobile up to ultrawide desktop) with clean vertical flow and no horizontal overflow |
+| 📆 **Date-Aligned Contribution Graph** | Custom, date-aware contribution graph that pads weeks timezone-independently, vertically aligning columns, hiding future days, and placing month labels dynamically |
+| ⚡ **Live GitHub Activity Timeline** | Real-time, timezone-independent feed mapping push events, watches, forks, and repository creations directly from the GitHub events API |
 | 🎨 **Modern Typography** | Outfit (headings), Inter (body), and JetBrains Mono (code/tags) via Google Fonts |
-| 🖱️ **Micro-Animations** | Glowing brand developer SVG code brackets icon, hover lift transitions, icon tilts, shine sweeps, heartbeat footer, and spring-eased micro-interactions |
-| 🔗 **Active Nav Tracking** | Navigation links highlight based on current scroll position |
+| 🖱️ **Micro-Animations** | Responsive 3D hover tilt effects, hover lift transitions, animated availability badges, typing subtitle carousel, and marquee tech strips |
 
 ---
 
@@ -27,12 +27,14 @@ A premium, dark-themed developer portfolio website built using **React, Vite, an
 ```
 CodexGamerz.github.io/
 ├── docs/           ← Production-built assets (HTML, CSS, JS) served on GitHub Pages
-├── public/         ← Static public assets (icons, images)
+├── public/         ← Static public assets (icons, SVG maps)
 ├── src/            ← React source code
-│   ├── components/ ← Modular UI components (Navbar, Hero, About, Carousel, TechStack, Contact, Footer)
-│   ├── hooks/      ← Custom React hooks (useCursorGlow, useIntersectionObserver, useCountUp)
-│   ├── App.jsx     ← Main app view and projects configuration array
-│   └── index.css   ← Premium CSS variables, styling framework, and keyframe animations
+│   ├── components/ ← Inline sub-components & custom SVGs (Icons.jsx)
+│   ├── hooks/      ← Custom hooks (use3DTilt.js, useIntersectionObserver.js)
+│   ├── App.css     ← App container styles
+│   ├── App.jsx     ← Main monolithic application controller, configuration, and data arrays
+│   ├── index.css   ← Premium CSS variables, styling framework, and keyframe animations
+│   └── main.jsx    ← React DOM entry point
 ├── index.html      ← Entry template
 ├── package.json    ← Scripts and dependencies
 └── README.md       ← You are here
@@ -42,12 +44,14 @@ CodexGamerz.github.io/
 
 ## 🚀 Sections
 
-1. **Hero** — Animated gradient name, tagline, availability badge, and CTA buttons alongside interactive command terminal
-2. **About** — Focus areas grid (ML, LLMs, Systems, Optimization) + dynamically calculated stat counters (20+ Projects Built, 9+ Live Demos)
-3. **Projects** — 20 featured builds in a smooth sideways sliding carousel with category filters and hover-pause autoplay
-4. **Tech Stack** — Languages, AI/DL frameworks, and tools/infra in hoverable pill layouts
-5. **Interests** — 6 research areas cycling in a smooth sideways sliding carousel
-6. **Contact** — GitHub & Instagram cards with signature quote and responsive metrics cards
+1. **Hero** — Animated gradient name, typing role subtitle, availability badge, live GitHub followers/repos stats, and interactive profile card
+2. **About** — Mono terminal profile code mock + dynamically calculated stat counters (Total Built, AI/ML Systems, Live Demos)
+3. **Projects** — 20 featured builds displayed in a clean, categorized, and searchable responsive grid
+4. **Tech Stack** — Categorized languages, AI/DL frameworks, and developer tools in hoverable pill layouts
+5. **Contribution Graph** — Date-padded activity grid displaying live-aligned code contributions
+6. **Activity Timeline** — Vertical timeline list of recent public GitHub events
+7. **Interests** — Research focus cards highlighting technical areas of expertise
+8. **Contact** — Signature quote, email copy utility, and links to GitHub & Instagram
 
 ---
 
@@ -56,7 +60,7 @@ CodexGamerz.github.io/
 - **React** — Component-driven architecture, state management, hooks
 - **Vite** — High-performance frontend bundler
 - **CSS3** — Custom variables, backdrop filters, CSS Grid, Flexbox, custom animations
-- **JavaScript** — Intersection Observer, `requestAnimationFrame` cursor tracking, responsive carousel calculations
+- **JavaScript** — Intersection Observer, 3D card tilt tracking, and date-padded contribution API processing
 
 ---
 
