@@ -577,6 +577,21 @@ export default function App() {
       ]
     },
     {
+      icon: <BrainIcon />,
+      title: "B.Tech-AI-Tutor-7B",
+      category: "ai",
+      desc: "A fine-tuned, specialized LLM built on top of Qwen-2.5-7B-Instruct, designed as an academic study tutor for Computer Science & Engineering (AI & ML) students. Optimized for local GGUF running.",
+      features: [
+        "Specialized 5-layer training dataset comprising ~480K instruction-tuning samples and 15K custom preference alignment pairs",
+        "Configured multi-phase pipeline executing supervised fine-tuning (SFT) and Direct Preference Optimization (DPO) via Unsloth",
+        "Resource-optimized GGUF quantization allowing high-performance local inference on 4GB VRAM consumer laptops via Ollama"
+      ],
+      tags: ["PyTorch", "Qwen-2.5", "Unsloth", "DPO / SFT", "HuggingFace", "GGUF", "Ollama", "Fine-Tuning"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/B.Tech-AI-Tutor-7B", id: "link-btech-ai-tutor" }
+      ]
+    },
+    {
       icon: <ReportIcon />,
       title: "LinguistReport",
       category: "devtool",
