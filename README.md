@@ -46,7 +46,7 @@ CodexGamerz.github.io/
 
 1. **Hero** — Animated gradient name, typing role subtitle, availability badge, live GitHub followers/repos stats, and interactive profile card
 2. **About** — Mono terminal profile code mock + dynamically calculated stat counters (Total Built, AI/ML Systems, Live Demos)
-3. **Projects** — 20 featured builds displayed in a clean, categorized, and searchable responsive grid
+3. **Projects** — 22 featured builds displayed in a clean, categorized, and searchable responsive grid
 4. **Tech Stack** — Categorized languages, AI/DL frameworks, and developer tools in hoverable pill layouts
 5. **Contribution Graph** — Date-padded activity grid displaying live-aligned code contributions
 6. **Activity Timeline** — Vertical timeline list of recent public GitHub events
