@@ -25,7 +25,8 @@ import {
   ZapIcon,
   ReportIcon,
   ShieldIcon,
-  KeyCodeIcon
+  KeyCodeIcon,
+  JarvisIcon
 } from './components/Icons';
 
 // ===== SUB-COMPONENTS =====
@@ -649,6 +650,21 @@ export default function App() {
       tags: ["Python", "LangGraph", "Qdrant", "Ollama", "CLI", "SQLite", "Local First"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/SentinelRAG", id: "link-sentinelrag" }
+      ]
+    },
+    {
+      icon: <JarvisIcon />,
+      title: "JarvisRAG",
+      category: "ai",
+      desc: "A local-first Retrieval-Augmented Generation application featuring a FastAPI backend that ingests documents into a FAISS vector store and synthesizes grounded answers with Gemini.",
+      features: [
+        "Inline RAG Console (/command.html) displaying a listening core orb that toggles into a holographic terminal with MathJax LaTeX and Marked.js rendering",
+        "Retrieval Stream Dashboard (/stream.html) to monitor real-time RAG operations, search the index, and analyze source chunks with cosine similarity telemetry",
+        "Knowledge Base Manager (/knowledge.html) supporting drag-and-drop file ingestion, document raw content preview, and background database sync"
+      ],
+      tags: ["FastAPI", "FAISS", "Gemini API", "Tailwind CSS", "Python", "Local Embeddings"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/JarvisRAG", id: "link-jarvisrag" }
       ]
     },
     {

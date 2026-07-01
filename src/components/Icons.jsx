@@ -247,3 +247,21 @@ export function KeyCodeIcon(props) {
     </svg>
   );
 }
+
+export function JarvisIcon(props) {
+  return (
+    <svg {...defaultProps} {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v4" />
+      <path d="M12 18v4" />
+      <path d="M2 12h4" />
+      <path d="M18 12h4" />
+      <path d="m4.9 4.9 2.9 2.9" />
+      <path d="m16.2 16.2 2.9 2.9" />
+      <path d="m19.1 4.9-2.9 2.9" />
+      <path d="m7.8 16.2-2.9 2.9" />
+    </svg>
+  );
+}
+
