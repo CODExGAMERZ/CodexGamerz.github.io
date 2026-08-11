@@ -335,47 +335,52 @@ export default function App() {
 
   // Fetch Contribution Graph with Date-Aware Padding
   useEffect(() => {
-    fetch('https://github-contributions-api.deno.dev/CODExGAMERZ.json')
+    fetch('https://github-contributions-api.jogruber.de/v4/CODExGAMERZ')
       .then(res => res.json())
       .then(data => {
-        if (data && data.contributions) {
-          const processedGrid = data.contributions.map(week => {
-            if (week.length === 0) return Array(7).fill({ isPlaceholder: true });
+        if (data && data.contributions && data.contributions.length > 0) {
+          const days = data.contributions;
+          // Get approximately the last 53 weeks (371 days)
+          const sliceDays = days.slice(-371);
+          if (sliceDays.length > 0) {
+            // Find the day of week of the first day to align columns correctly to Sunday
+            const [year, month, day] = sliceDays[0].date.split('-').map(Number);
+            const dateObj = new Date(Date.UTC(year, month - 1, day));
+            const startDayOfWeek = dateObj.getUTCDay();
 
-            // Calculate start day of week for this week timezone-independently
-            const [year, month, day] = week[0].date.split('-').map(Number);
-            const startDayOfWeek = new Date(Date.UTC(year, month - 1, day)).getUTCDay();
-
-            const paddedWeek = [];
-            for (let i = 0; i < 7; i++) {
-              if (i < startDayOfWeek) {
-                paddedWeek.push({ isPlaceholder: true });
-              } else if (i < startDayOfWeek + week.length) {
-                const dayData = week[i - startDayOfWeek];
-                const levelsMap = {
-                  'FIRST_QUARTILE': 1,
-                  'SECOND_QUARTILE': 2,
-                  'THIRD_QUARTILE': 3,
-                  'FOURTH_QUARTILE': 4
-                };
-                const level = levelsMap[dayData.contributionLevel] || 0;
-                paddedWeek.push({
-                  level,
-                  date: dayData.date,
-                  count: dayData.contributionCount,
-                  isPlaceholder: false
-                });
-              } else {
-                paddedWeek.push({ isPlaceholder: true });
-              }
+            const paddedDays = [];
+            // Pad the start with placeholders so the grid starts on Sunday
+            for (let i = 0; i < startDayOfWeek; i++) {
+              paddedDays.push({ isPlaceholder: true });
             }
-            return paddedWeek;
-          });
 
-          if (processedGrid.length > 53) {
-            setContributionGrid(processedGrid.slice(-53));
-          } else {
-            setContributionGrid(processedGrid);
+            // Map all days
+            sliceDays.forEach(d => {
+              paddedDays.push({
+                level: d.level || 0,
+                date: d.date,
+                count: d.count || 0,
+                isPlaceholder: false
+              });
+            });
+
+            // Pad the end to complete the last week
+            while (paddedDays.length % 7 !== 0) {
+              paddedDays.push({ isPlaceholder: true });
+            }
+
+            // Split into weeks of 7 days
+            const grid = [];
+            for (let i = 0; i < paddedDays.length; i += 7) {
+              grid.push(paddedDays.slice(i, i + 7));
+            }
+
+            // Ensure we only show exactly 53 weeks (columns)
+            if (grid.length > 53) {
+              setContributionGrid(grid.slice(-53));
+            } else {
+              setContributionGrid(grid);
+            }
           }
         }
       })
@@ -561,6 +566,21 @@ export default function App() {
   ];
 
   const projects = useMemo(() => [
+    {
+      icon: <TerminalIcon />,
+      title: "Homogenous",
+      category: "cli",
+      desc: "A local-first, zero-overhead agentic CLI coding assistant built in TypeScript and Ink, featuring multi-provider local/cloud routing, standing plan mode, and interactive TUI.",
+      features: [
+        "Dark Neon TUI Theme Engine: Responsive terminal interface using React 19 and Ink, featuring syntax-highlighted code blocks, state-reactive prompt container borders, and live spinners",
+        "Unified LLM Providers & Failover: Connects 11 different cloud and local inference models (Ollama, Anthropic, OpenAI, Groq, NVIDIA NIM, DeepSeek)",
+        "Standing Plan Mode & Safe Auto-Approve: Offers architectural proposals (/plan) and sandbox gates to review code changes before execution"
+      ],
+      tags: ["TypeScript", "Node.js", "CLI", "React (Ink)", "Ollama", "Anthropic", "MCP", "AI Agent"],
+      links: [
+        { label: "Source Code", href: "https://github.com/CODExGAMERZ/homogenous", id: "link-homogenous" }
+      ]
+    },
     {
       icon: <CodeScopeIcon />,
       title: "LogicScope",
@@ -1236,10 +1256,10 @@ export default function App() {
                   <p className="text-neutral-400 mt-3">const <span className="text-blue-400">developer</span> = &#123;</p>
                   <p className="text-neutral-400 ml-4">name: <span className="text-yellow-300">"Aryan"</span>,</p>
                   <p className="text-neutral-400 ml-4">handle: <span className="text-yellow-300">"CODExGAMERZ"</span>,</p>
-                  <p className="text-neutral-400 ml-4">role: <span className="text-yellow-300">"AI Engineer & Software Builder"</span>,</p>
+                  <p className="text-neutral-400 ml-4">role: <span className="text-yellow-300">"AI Engineer & Systems Developer"</span>,</p>
                   <p className="text-neutral-400 ml-4">location: <span className="text-yellow-300">"India"</span>,</p>
-                  <p className="text-neutral-400 ml-4">languages: [<span className="text-yellow-300">"Python"</span>, <span className="text-yellow-300">"JS/TS"</span>, <span className="text-yellow-300">"C"</span>, <span className="text-yellow-300">"Kotlin"</span>],</p>
-                  <p className="text-neutral-400 ml-4">funFact: <span className="text-yellow-300">"Code + Games = Life"</span></p>
+                  <p className="text-neutral-400 ml-4">specialties: [<span className="text-yellow-300">"Local-First AI"</span>, <span className="text-yellow-300">"Dev Tooling"</span>, <span className="text-yellow-300">"Compilers"</span>],</p>
+                  <p className="text-neutral-400 ml-4">languages: [<span className="text-yellow-300">"Python"</span>, <span className="text-yellow-300">"TypeScript"</span>, <span className="text-yellow-300">"C"</span>, <span className="text-yellow-300">"Kotlin"</span>]</p>
                   <p className="text-neutral-400">&#125;;</p>
                   <p className="text-green-400 mt-3">$ <span className="terminal-cursor h-4 w-1.5"></span></p>
                 </div>
@@ -1253,10 +1273,10 @@ export default function App() {
                 Crafting Intelligent <br /><span className="gradient-text">Systems</span>
               </h2>
               <p className="text-base md:text-lg text-neutral-300 font-light leading-relaxed mb-6">
-                I enjoy exploring how modern systems work internally — from <strong>Transformers and semantic retrieval</strong> to <strong>compilers, hybrid AI, and developer automation tools</strong>.
+                I specialize in building **performance-first developer tooling, local-first machine learning pipelines, and hybrid AI systems** optimized for low-latency execution, hardware efficiency, and absolute data privacy.
               </p>
               <p className="text-base md:text-lg text-neutral-300 font-light leading-relaxed mb-8">
-                My work focuses on combining Machine Learning &amp; Deep Learning with practical software engineering, building systems that are efficient, understandable, and genuinely useful.
+                My work focuses on shifting complex computational workloads directly back to client hardware through optimized architectures, lightweight compilers, and custom local runtimes.
               </p>
               
               {/* Dynamic stats cards based on actual projects data */}
