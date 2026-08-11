@@ -333,18 +333,22 @@ export default function App() {
       .catch(err => console.error("Error fetching stats:", err));
   }, []);
 
-  // Fetch Contribution Graph with Date-Aware Padding
+  // Fetch Contribution Graph with Date-Aware Padding (Filtered to Current Calendar Year)
   useEffect(() => {
     fetch('https://github-contributions-api.jogruber.de/v4/CODExGAMERZ')
       .then(res => res.json())
       .then(data => {
         if (data && data.contributions && data.contributions.length > 0) {
           const days = data.contributions;
-          // Get approximately the last 53 weeks (371 days)
-          const sliceDays = days.slice(-371);
-          if (sliceDays.length > 0) {
+          const currentYear = new Date().getFullYear().toString();
+          const currentYearDays = days.filter(d => d.date.startsWith(currentYear));
+
+          if (currentYearDays.length > 0) {
+            // Sort chronologically (just in case they are reversed in the raw API data)
+            currentYearDays.sort((a, b) => a.date.localeCompare(b.date));
+
             // Find the day of week of the first day to align columns correctly to Sunday
-            const [year, month, day] = sliceDays[0].date.split('-').map(Number);
+            const [year, month, day] = currentYearDays[0].date.split('-').map(Number);
             const dateObj = new Date(Date.UTC(year, month - 1, day));
             const startDayOfWeek = dateObj.getUTCDay();
 
@@ -355,7 +359,7 @@ export default function App() {
             }
 
             // Map all days
-            sliceDays.forEach(d => {
+            currentYearDays.forEach(d => {
               paddedDays.push({
                 level: d.level || 0,
                 date: d.date,
@@ -375,12 +379,8 @@ export default function App() {
               grid.push(paddedDays.slice(i, i + 7));
             }
 
-            // Ensure we only show exactly 53 weeks (columns)
-            if (grid.length > 53) {
-              setContributionGrid(grid.slice(-53));
-            } else {
-              setContributionGrid(grid);
-            }
+            // Ensure we display the grid columns
+            setContributionGrid(grid);
           }
         }
       })
