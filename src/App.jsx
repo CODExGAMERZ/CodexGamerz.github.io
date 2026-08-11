@@ -333,7 +333,7 @@ export default function App() {
       .catch(err => console.error("Error fetching stats:", err));
   }, []);
 
-  // Fetch Contribution Graph with Date-Aware Padding (Filtered to Current Calendar Year)
+  // Fetch Contribution Graph with Date-Aware Padding (Smart Active Year Detection)
   useEffect(() => {
     fetch('https://github-contributions-api.jogruber.de/v4/CODExGAMERZ')
       .then(res => res.json())
@@ -341,14 +341,27 @@ export default function App() {
         if (data && data.contributions && data.contributions.length > 0) {
           const days = data.contributions;
           const currentYear = new Date().getFullYear().toString();
-          const currentYearDays = days.filter(d => d.date.startsWith(currentYear));
 
-          if (currentYearDays.length > 0) {
-            // Sort chronologically (just in case they are reversed in the raw API data)
-            currentYearDays.sort((a, b) => a.date.localeCompare(b.date));
+          // Try getting current year days with activity
+          let targetDays = days.filter(d => d.date.startsWith(currentYear));
+          const hasCurrentYearActivity = targetDays.some(d => (d.count || 0) > 0 || (d.level || 0) > 0);
+
+          // If current year has 0 activity or is empty, automatically find the latest year that contains actual contributions
+          if (!hasCurrentYearActivity || targetDays.length === 0) {
+            const activeYears = Object.keys(data.total || {}).filter(y => (data.total[y] || 0) > 0);
+            if (activeYears.length > 0) {
+              activeYears.sort((a, b) => Number(b) - Number(a));
+              const bestYear = activeYears[0];
+              targetDays = days.filter(d => d.date.startsWith(bestYear));
+            }
+          }
+
+          if (targetDays.length > 0) {
+            // Sort chronologically
+            targetDays.sort((a, b) => a.date.localeCompare(b.date));
 
             // Find the day of week of the first day to align columns correctly to Sunday
-            const [year, month, day] = currentYearDays[0].date.split('-').map(Number);
+            const [year, month, day] = targetDays[0].date.split('-').map(Number);
             const dateObj = new Date(Date.UTC(year, month - 1, day));
             const startDayOfWeek = dateObj.getUTCDay();
 
@@ -359,7 +372,7 @@ export default function App() {
             }
 
             // Map all days
-            currentYearDays.forEach(d => {
+            targetDays.forEach(d => {
               paddedDays.push({
                 level: d.level || 0,
                 date: d.date,
@@ -379,7 +392,6 @@ export default function App() {
               grid.push(paddedDays.slice(i, i + 7));
             }
 
-            // Ensure we display the grid columns
             setContributionGrid(grid);
           }
         }
@@ -1464,8 +1476,8 @@ export default function App() {
                 if (!dayWithDate) return <div key={wIdx} className="w-3" />;
                 
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                const dateObj = new Date(dayWithDate.date);
-                const monthVal = dateObj.getMonth();
+                const [_, mMonth] = dayWithDate.date.split('-').map(Number);
+                const monthVal = mMonth - 1;
                 
                 let isNewMonth = false;
                 if (wIdx === 0) {
@@ -1474,8 +1486,8 @@ export default function App() {
                   const prevWeek = contributionGrid[wIdx - 1];
                   const prevDayWithDate = prevWeek.find(d => d && d.date);
                   if (prevDayWithDate) {
-                    const prevDateObj = new Date(prevDayWithDate.date);
-                    if (prevDateObj.getMonth() !== monthVal) {
+                    const [__, pMonth] = prevDayWithDate.date.split('-').map(Number);
+                    if (pMonth - 1 !== monthVal) {
                       isNewMonth = true;
                     }
                   }
@@ -1514,11 +1526,11 @@ export default function App() {
                         );
                       }
                       
-                      let colorClass = 'bg-white/[0.03]';
-                      if (day.level === 1) colorClass = 'bg-[#3b0707]';
-                      else if (day.level === 2) colorClass = 'bg-[#7f1d1d]';
-                      else if (day.level === 3) colorClass = 'bg-[#b91c1c]';
-                      else if (day.level === 4) colorClass = 'bg-[#ff0033]';
+                      let colorClass = 'bg-white/[0.04] border border-white/[0.02]';
+                      if (day.level === 1) colorClass = 'bg-[#7f1d1d]';
+                      else if (day.level === 2) colorClass = 'bg-[#b91c1c]';
+                      else if (day.level === 3) colorClass = 'bg-[#ef4444]';
+                      else if (day.level === 4) colorClass = 'bg-[#ff0033] shadow-[0_0_8px_rgba(255,0,51,0.6)]';
                       
                       return (
                         <div 
