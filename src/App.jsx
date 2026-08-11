@@ -315,7 +315,7 @@ export default function App() {
   const [activities, setActivities] = useState(defaultActivities);
 
   // Live GitHub Metrics State
-  const [gitStats, setGitStats] = useState({ repos: 24, followers: 4, following: 3 });
+  const [gitStats, setGitStats] = useState({ repos: 25, followers: 5, following: 4 });
 
   // Fetch GitHub User Info
   useEffect(() => {
@@ -974,12 +974,11 @@ export default function App() {
     const liveDemosCount = projects.filter(p => p.links?.some(l => l.isDemo)).length;
     const aiMlSystemsCount = projects.filter(p => 
       p.category === 'ai' || 
-      p.tags?.some(t => 
-        ['ai', 'ml', 'nlp', 'learning', 'transformer', 'ollama', 'gemini', 'claude', 'openai'].some(k => t.toLowerCase().includes(k))
-      ) ||
-      p.desc?.toLowerCase().includes('ai') || 
-      p.desc?.toLowerCase().includes('llm') || 
-      p.desc?.toLowerCase().includes('machine learning')
+      p.tags?.some(t => {
+        const lowerT = t.toLowerCase();
+        return ['ai', 'ml', 'nlp'].some(k => lowerT === k) || ['learning', 'transformer', 'ollama', 'gemini', 'claude', 'openai', 'agent', 'assistant'].some(k => lowerT.includes(k));
+      }) ||
+      /\b(ai|ml|nlp|llm|llms|agent|agents|assistant|assistants|rag|transformer|transformers|deep learning|machine learning)\b/i.test(p.desc)
     ).length;
 
     return {
