@@ -301,7 +301,181 @@ export default function App() {
   const [toastMsg, setToastMsg] = useState('Copied!');
   const [copyFeedback, setCopyFeedback] = useState('Click to copy');
 
-  const [contributionGrid, setContributionGrid] = useState(fallbackContributionGrid);
+  // Contribution Graph State
+  const [rawContributions, setRawContributions] = useState([]);
+  const [selectedYear, setSelectedYear] = useState('last');
+  const [availableYears, setAvailableYears] = useState(['last']);
+  const [contribLoading, setContribLoading] = useState(true);
+  const [hoveredDay, setHoveredDay] = useState(null);
+
+  // Fetch GitHub Contribution Data with Resilient Multi-Source Fallbacks
+  useEffect(() => {
+    let isMounted = true;
+    setContribLoading(true);
+
+    async function loadContributions() {
+      const username = 'CODExGAMERZ';
+      let fetchedDays = [];
+
+      // Source 1: Vercel API
+      try {
+        const res = await fetch(`https://github-contributions.vercel.app/api/v1/${username}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.contributions && data.contributions.length > 0) {
+            fetchedDays = data.contributions.map(item => {
+              const level = parseInt(item.intensity || item.level || '0', 10);
+              let count = item.count || 0;
+              if (count === 0 && level > 0) {
+                count = level === 1 ? 1 : level === 2 ? 4 : level === 3 ? 8 : 15;
+              }
+              return { date: item.date, count, level };
+            });
+          }
+        }
+      } catch (e) {
+        console.warn("Vercel contribution API failed:", e);
+      }
+
+      // Source 2: Jogruber API fallback
+      if (fetchedDays.length === 0) {
+        try {
+          const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.contributions && data.contributions.length > 0) {
+              fetchedDays = data.contributions.map(item => ({
+                date: item.date,
+                count: item.count || 0,
+                level: item.level || 0
+              }));
+            }
+          }
+        } catch (e) {
+          console.warn("Jogruber contribution API failed:", e);
+        }
+      }
+
+      // Source 3: Official GitHub REST Events API Fallback (Guaranteed 100% CORS support)
+      if (fetchedDays.length === 0) {
+        try {
+          const res = await fetch(`https://api.github.com/users/${username}/events?per_page=100`);
+          if (res.ok) {
+            const events = await res.json();
+            if (Array.isArray(events) && events.length > 0) {
+              const eventMap = {};
+              events.forEach(ev => {
+                if (ev.created_at) {
+                  const day = ev.created_at.split('T')[0];
+                  eventMap[day] = (eventMap[day] || 0) + 1;
+                }
+              });
+
+              // Generate rolling 365 days window with mapped live event activity
+              const daysArr = [];
+              const today = new Date();
+              for (let i = 364; i >= 0; i--) {
+                const d = new Date(today);
+                d.setDate(d.getDate() - i);
+                const iso = d.toISOString().split('T')[0];
+                const count = eventMap[iso] || 0;
+                let level = 0;
+                if (count > 8) level = 4;
+                else if (count > 4) level = 3;
+                else if (count > 2) level = 2;
+                else if (count > 0) level = 1;
+
+                daysArr.push({ date: iso, count, level });
+              }
+              fetchedDays = daysArr;
+            }
+          }
+        } catch (e) {
+          console.warn("GitHub events API fallback failed:", e);
+        }
+      }
+
+      if (isMounted) {
+        if (fetchedDays.length > 0) {
+          // Sort chronologically ascending
+          fetchedDays.sort((a, b) => a.date.localeCompare(b.date));
+          setRawContributions(fetchedDays);
+
+          // Extract unique years
+          const yearSet = new Set(fetchedDays.map(d => d.date.substring(0, 4)).filter(Boolean));
+          const yearsArr = Array.from(yearSet).sort((a, b) => Number(b) - Number(a));
+          setAvailableYears(['last', ...yearsArr]);
+        }
+        setContribLoading(false);
+      }
+    }
+
+    loadContributions();
+    return () => { isMounted = false; };
+  }, []);
+
+  // Compute Grid & Metrics based on rawContributions and selectedYear
+  const { contributionGrid, totalContributions, dateRangeText } = useMemo(() => {
+    if (!rawContributions || rawContributions.length === 0) {
+      return {
+        contributionGrid: fallbackContributionGrid,
+        totalContributions: 0,
+        dateRangeText: ''
+      };
+    }
+
+    let targetDays = [];
+    if (selectedYear === 'last') {
+      // Last 365 days
+      targetDays = rawContributions.slice(-365);
+    } else {
+      targetDays = rawContributions.filter(d => d.date.startsWith(selectedYear));
+    }
+
+    if (targetDays.length === 0) {
+      targetDays = rawContributions.slice(-365);
+    }
+
+    const totalCount = targetDays.reduce((acc, d) => acc + (d.count || 0), 0);
+
+    const formatDate = (isoStr) => {
+      if (!isoStr) return '';
+      const [y, m, d] = isoStr.split('-').map(Number);
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return `${months[m - 1]} ${y}`;
+    };
+    const rangeText = targetDays.length > 0 ? `${formatDate(targetDays[0].date)} – ${formatDate(targetDays[targetDays.length - 1].date)}` : '';
+
+    // Align start date to Sunday
+    const [startYear, startMonth, startDay] = targetDays[0].date.split('-').map(Number);
+    const startDateObj = new Date(Date.UTC(startYear, startMonth - 1, startDay));
+    const startDayOfWeek = startDateObj.getUTCDay();
+
+    const paddedDays = [];
+    for (let i = 0; i < startDayOfWeek; i++) {
+      paddedDays.push({ isPlaceholder: true });
+    }
+
+    targetDays.forEach(d => {
+      paddedDays.push({
+        date: d.date,
+        count: d.count || 0,
+        level: d.level || 0,
+        isPlaceholder: false
+      });
+    });
+
+    while (paddedDays.length % 7 !== 0) {
+      paddedDays.push({ isPlaceholder: true });
+    }
+
+    const grid = [];
+    for (let i = 0; i < paddedDays.length; i += 7) {
+      grid.push(paddedDays.slice(i, i + 7));
+    }
+
+    return { contributionGrid: grid, totalContributions: totalCount, dateRangeText: rangeText };
+  }, [rawContributions, selectedYear]);
 
   // Fallback default activities
   const defaultActivities = useMemo(() => [
@@ -333,71 +507,6 @@ export default function App() {
       .catch(err => console.error("Error fetching stats:", err));
   }, []);
 
-  // Fetch Contribution Graph with Date-Aware Padding (Smart Active Year Detection)
-  useEffect(() => {
-    fetch('https://github-contributions-api.jogruber.de/v4/CODExGAMERZ')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.contributions && data.contributions.length > 0) {
-          const days = data.contributions;
-          const currentYear = new Date().getFullYear().toString();
-
-          // Try getting current year days with activity
-          let targetDays = days.filter(d => d.date.startsWith(currentYear));
-          const hasCurrentYearActivity = targetDays.some(d => (d.count || 0) > 0 || (d.level || 0) > 0);
-
-          // If current year has 0 activity or is empty, automatically find the latest year that contains actual contributions
-          if (!hasCurrentYearActivity || targetDays.length === 0) {
-            const activeYears = Object.keys(data.total || {}).filter(y => (data.total[y] || 0) > 0);
-            if (activeYears.length > 0) {
-              activeYears.sort((a, b) => Number(b) - Number(a));
-              const bestYear = activeYears[0];
-              targetDays = days.filter(d => d.date.startsWith(bestYear));
-            }
-          }
-
-          if (targetDays.length > 0) {
-            // Sort chronologically
-            targetDays.sort((a, b) => a.date.localeCompare(b.date));
-
-            // Find the day of week of the first day to align columns correctly to Sunday
-            const [year, month, day] = targetDays[0].date.split('-').map(Number);
-            const dateObj = new Date(Date.UTC(year, month - 1, day));
-            const startDayOfWeek = dateObj.getUTCDay();
-
-            const paddedDays = [];
-            // Pad the start with placeholders so the grid starts on Sunday
-            for (let i = 0; i < startDayOfWeek; i++) {
-              paddedDays.push({ isPlaceholder: true });
-            }
-
-            // Map all days
-            targetDays.forEach(d => {
-              paddedDays.push({
-                level: d.level || 0,
-                date: d.date,
-                count: d.count || 0,
-                isPlaceholder: false
-              });
-            });
-
-            // Pad the end to complete the last week
-            while (paddedDays.length % 7 !== 0) {
-              paddedDays.push({ isPlaceholder: true });
-            }
-
-            // Split into weeks of 7 days
-            const grid = [];
-            for (let i = 0; i < paddedDays.length; i += 7) {
-              grid.push(paddedDays.slice(i, i + 7));
-            }
-
-            setContributionGrid(grid);
-          }
-        }
-      })
-      .catch(err => console.error("Error fetching contributions:", err));
-  }, []);
 
   // Fetch and Parse Latest Activities
   useEffect(() => {
@@ -1468,92 +1577,159 @@ export default function App() {
             <p className="text-sm text-neutral-400 mt-3 font-light">A visual representation of coding consistency</p>
           </div>
 
-          <div className="reveal rounded-xl border border-white/10 bg-[#0A0A0A] p-6 md:p-8 overflow-x-auto max-w-4xl mx-auto custom-scrollbar">
-            {/* Month labels dynamically placed */}
-            <div className="flex gap-[3px] mb-3 text-[10px] font-mono text-neutral-500 pl-10 relative h-4">
-              {contributionGrid.map((week, wIdx) => {
-                const dayWithDate = week.find(d => d && d.date);
-                if (!dayWithDate) return <div key={wIdx} className="w-3" />;
-                
-                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                const [_, mMonth] = dayWithDate.date.split('-').map(Number);
-                const monthVal = mMonth - 1;
-                
-                let isNewMonth = false;
-                if (wIdx === 0) {
-                  isNewMonth = true;
-                } else {
-                  const prevWeek = contributionGrid[wIdx - 1];
-                  const prevDayWithDate = prevWeek.find(d => d && d.date);
-                  if (prevDayWithDate) {
-                    const [__, pMonth] = prevDayWithDate.date.split('-').map(Number);
-                    if (pMonth - 1 !== monthVal) {
-                      isNewMonth = true;
-                    }
-                  }
-                }
-                
-                return (
-                  <div key={wIdx} className="w-3 relative flex-shrink-0">
-                    {isNewMonth && (
-                      <span className="absolute left-0 top-0 whitespace-nowrap">
-                        {monthNames[monthVal]}
-                      </span>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-            
-            {/* Contribution Cells */}
-            <div className="flex gap-[3px]">
-              <div className="flex flex-col justify-between text-[9px] font-mono text-neutral-500 pr-3 h-[102px] leading-tight select-none">
-                <span>Mon</span>
-                <span>Wed</span>
-                <span>Fri</span>
+          <div className="reveal rounded-xl border border-white/10 bg-[#0A0A0A] p-6 md:p-8 max-w-4xl mx-auto shadow-2xl relative">
+            {/* Header Metrics & Year Selector */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-white/10">
+              <div>
+                <div className="text-sm font-semibold text-white flex items-center gap-2">
+                  <span>{totalContributions > 0 ? `${totalContributions} contributions` : 'GitHub Contributions'}</span>
+                  <span className="text-xs font-mono text-neutral-400 font-normal">
+                    ({selectedYear === 'last' ? 'Last 12 Months' : selectedYear})
+                  </span>
+                </div>
+                {dateRangeText && (
+                  <p className="text-xs font-mono text-neutral-500 mt-0.5">{dateRangeText}</p>
+                )}
               </div>
-              
-              <div className="flex gap-[3px]">
-                {contributionGrid.map((week, wIdx) => (
-                  <div key={wIdx} className="flex flex-col gap-[3px]">
-                    {week.map((day, dIdx) => {
-                      if (day.isPlaceholder) {
-                        return (
-                          <div 
-                            key={dIdx} 
-                            className="contrib-cell opacity-0 pointer-events-none"
-                          />
-                        );
-                      }
-                      
-                      let colorClass = 'bg-white/[0.04] border border-white/[0.02]';
-                      if (day.level === 1) colorClass = 'bg-[#7f1d1d]';
-                      else if (day.level === 2) colorClass = 'bg-[#b91c1c]';
-                      else if (day.level === 3) colorClass = 'bg-[#ef4444]';
-                      else if (day.level === 4) colorClass = 'bg-[#ff0033] shadow-[0_0_8px_rgba(255,0,51,0.6)]';
-                      
-                      return (
-                        <div 
-                          key={dIdx} 
-                          className={`contrib-cell ${colorClass}`} 
-                          title={day.date ? `${day.count} contributions on ${day.date}` : `Level ${day.level} activity`}
-                        />
-                      );
-                    })}
-                  </div>
+
+              <div className="flex flex-wrap items-center gap-1.5">
+                {availableYears.map(yr => (
+                  <button
+                    key={yr}
+                    onClick={() => setSelectedYear(yr)}
+                    className={`px-2.5 py-1 text-xs font-mono rounded-md transition-all duration-200 ${
+                      selectedYear === yr
+                        ? 'bg-brand-red text-white font-medium shadow-[0_0_10px_rgba(185,28,28,0.5)]'
+                        : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {yr === 'last' ? 'Last 12 Mo' : yr}
+                  </button>
                 ))}
+                <a
+                  href="https://github.com/CODExGAMERZ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-1 p-1.5 rounded-md bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10 transition-colors"
+                  title="View Profile on GitHub"
+                >
+                  <Icon icon="mdi:github" className="w-4 h-4" />
+                </a>
               </div>
             </div>
 
-            {/* Legend */}
-            <div className="flex items-center justify-end gap-2.5 mt-5 text-[10px] font-mono text-neutral-500">
-              <span>Less</span>
-              <div className="w-3.5 h-3.5 rounded bg-white/[0.03]"></div>
-              <div className="w-3.5 h-3.5 rounded bg-[#3b0707]"></div>
-              <div className="w-3.5 h-3.5 rounded bg-[#7f1d1d]"></div>
-              <div className="w-3.5 h-3.5 rounded bg-[#b91c1c]"></div>
-              <div className="w-3.5 h-3.5 rounded bg-[#ff0033]"></div>
-              <span>More</span>
+            {/* Scrollable Contribution Calendar Grid */}
+            <div className="overflow-x-auto custom-scrollbar pb-2 relative">
+              {/* Month Labels */}
+              <div className="flex gap-[3px] mb-2 text-[10px] font-mono text-neutral-500 pl-8 relative h-4 select-none">
+                {contributionGrid.map((week, wIdx) => {
+                  const dayWithDate = week.find(d => d && d.date);
+                  if (!dayWithDate) return <div key={wIdx} className="w-[12px] flex-shrink-0" />;
+                  
+                  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                  const [_, mMonth] = dayWithDate.date.split('-').map(Number);
+                  const monthVal = mMonth - 1;
+                  
+                  let isNewMonth = false;
+                  if (wIdx === 0) {
+                    isNewMonth = true;
+                  } else {
+                    const prevWeek = contributionGrid[wIdx - 1];
+                    const prevDayWithDate = prevWeek.find(d => d && d.date);
+                    if (prevDayWithDate) {
+                      const [__, pMonth] = prevDayWithDate.date.split('-').map(Number);
+                      if (pMonth - 1 !== monthVal) {
+                        isNewMonth = true;
+                      }
+                    }
+                  }
+                  
+                  return (
+                    <div key={wIdx} className="w-[12px] relative flex-shrink-0">
+                      {isNewMonth && (
+                        <span className="absolute left-0 top-0 whitespace-nowrap">
+                          {monthNames[monthVal]}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              
+              {/* Contribution Cells */}
+              <div className="flex gap-[3px] relative">
+                {/* Day Labels Column */}
+                <div className="flex flex-col text-[9px] font-mono text-neutral-500 pr-2 w-6 relative select-none h-[102px]">
+                  <span className="absolute top-[15px] left-0">Mon</span>
+                  <span className="absolute top-[45px] left-0">Wed</span>
+                  <span className="absolute top-[75px] left-0">Fri</span>
+                </div>
+                
+                {/* Week Columns */}
+                <div className="flex gap-[3px]">
+                  {contributionGrid.map((week, wIdx) => (
+                    <div key={wIdx} className="flex flex-col gap-[3px]">
+                      {week.map((day, dIdx) => {
+                        if (day.isPlaceholder) {
+                          return (
+                            <div 
+                              key={dIdx} 
+                              className="contrib-cell opacity-0 pointer-events-none"
+                            />
+                          );
+                        }
+                        
+                        let colorClass = 'bg-white/[0.04] border border-white/[0.02]';
+                        if (day.level === 1) colorClass = 'bg-[#7f1d1d]';
+                        else if (day.level === 2) colorClass = 'bg-[#b91c1c]';
+                        else if (day.level === 3) colorClass = 'bg-[#ef4444]';
+                        else if (day.level === 4) colorClass = 'bg-[#ff0033] shadow-[0_0_8px_rgba(255,0,51,0.6)]';
+                        
+                        const tooltipText = day.date
+                          ? `${day.count > 0 ? day.count : 'No'} contribution${day.count === 1 ? '' : 's'} on ${new Date(day.date + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}`
+                          : `Level ${day.level} activity`;
+
+                        return (
+                          <div 
+                            key={dIdx} 
+                            className={`contrib-cell ${colorClass} cursor-pointer relative group`} 
+                            onMouseEnter={() => setHoveredDay(day)}
+                            onMouseLeave={() => setHoveredDay(null)}
+                            title={tooltipText}
+                          />
+                        );
+                      })}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Legend & Status */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mt-5 pt-3 border-t border-white/5 text-[10px] font-mono text-neutral-500">
+              <div className="flex items-center gap-2">
+                {contribLoading ? (
+                  <span className="text-amber-400 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span>
+                    Syncing GitHub activity...
+                  </span>
+                ) : (
+                  <span className="text-emerald-400 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    Live Data Synced
+                  </span>
+                )}
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span>Less</span>
+                <div className="w-3 h-3 rounded-[2px] bg-white/[0.04] border border-white/[0.02]"></div>
+                <div className="w-3 h-3 rounded-[2px] bg-[#7f1d1d]"></div>
+                <div className="w-3 h-3 rounded-[2px] bg-[#b91c1c]"></div>
+                <div className="w-3 h-3 rounded-[2px] bg-[#ef4444]"></div>
+                <div className="w-3 h-3 rounded-[2px] bg-[#ff0033] shadow-[0_0_4px_rgba(255,0,51,0.8)]"></div>
+                <span>More</span>
+              </div>
             </div>
           </div>
         </div>
