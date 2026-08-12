@@ -274,6 +274,39 @@ const fallbackContributionGrid = (() => {
   return grid;
 })();
 
+// Real GitHub Contributions Snapshot for CODExGAMERZ (Extracted from official GitHub profile HTML)
+const activeContributionsMap = {
+  "2026-02-08":[2,14],"2026-02-22":[1,5],"2026-05-10":[1,1],"2026-05-24":[1,3],
+  "2026-05-31":[3,21],"2026-06-14":[2,13],"2026-06-21":[3,27],"2026-07-05":[1,1],
+  "2026-02-09":[1,1],"2026-02-23":[1,1],"2026-05-11":[1,4],"2026-06-15":[1,8],
+  "2026-06-22":[1,9],"2026-06-29":[1,7],"2026-02-10":[3,23],"2026-05-26":[1,2],
+  "2026-06-16":[4,40],"2026-06-23":[1,2],"2026-08-11":[1,10],"2026-05-27":[1,2],
+  "2026-06-17":[1,3],"2026-06-24":[1,5],"2026-07-01":[1,8],"2026-02-12":[1,1],
+  "2026-02-19":[1,6],"2026-02-26":[1,7],"2026-05-28":[4,33],"2026-06-04":[1,5],
+  "2026-06-18":[1,7],"2026-06-25":[1,1],"2026-02-20":[1,7],"2026-05-08":[1,1],
+  "2026-05-29":[3,29],"2026-06-19":[2,12],"2026-06-26":[1,1],"2026-02-21":[1,3],
+  "2026-05-09":[1,2],"2026-05-23":[2,17],"2026-05-30":[3,21],"2026-06-20":[1,3],
+  "2026-06-27":[1,1]
+};
+
+const realGitHubSnapshot = (() => {
+  const result = [];
+  const start = new Date(Date.UTC(2025, 7, 10)); // 2025-08-10
+  const end = new Date(Date.UTC(2026, 7, 12));   // 2026-08-12
+  const cur = new Date(start);
+  while (cur <= end) {
+    const iso = cur.toISOString().split('T')[0];
+    const item = activeContributionsMap[iso];
+    result.push({
+      date: iso,
+      level: item ? item[0] : 0,
+      count: item ? item[1] : 0
+    });
+    cur.setUTCDate(cur.getUTCDate() + 1);
+  }
+  return result;
+})();
+
 // ===== MAIN COMPONENT =====
 
 export default function App() {
@@ -301,62 +334,62 @@ export default function App() {
   const [toastMsg, setToastMsg] = useState('Copied!');
   const [copyFeedback, setCopyFeedback] = useState('Click to copy');
 
-  // Contribution Graph State
-  const [rawContributions, setRawContributions] = useState([]);
+  // Contribution Graph State (Initialized with 100% Real GitHub Data Snapshot)
+  const [rawContributions, setRawContributions] = useState(realGitHubSnapshot);
   const [selectedYear, setSelectedYear] = useState('last');
-  const [availableYears, setAvailableYears] = useState(['last']);
-  const [contribLoading, setContribLoading] = useState(true);
+  const [availableYears, setAvailableYears] = useState(['last', '2026', '2025']);
+  const [contribLoading, setContribLoading] = useState(false);
   const [hoveredDay, setHoveredDay] = useState(null);
 
-  // Fetch GitHub Contribution Data with Resilient Multi-Source Fallbacks
+  // Fetch Live GitHub Contribution Data via CORS Proxy for Real-Time Sync
   useEffect(() => {
     let isMounted = true;
-    setContribLoading(true);
 
     async function loadContributions() {
       const username = 'CODExGAMERZ';
       let fetchedDays = [];
 
-      // Source 1: Vercel API
+      // Primary Live Source: Parse real GitHub profile HTML via AllOrigins CORS proxy
       try {
-        const res = await fetch(`https://github-contributions.vercel.app/api/v1/${username}`);
+        const targetUrl = `https://github.com/users/${username}/contributions`;
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+        const res = await fetch(proxyUrl);
         if (res.ok) {
-          const data = await res.json();
-          if (data && data.contributions && data.contributions.length > 0) {
-            fetchedDays = data.contributions.map(item => {
-              const level = parseInt(item.intensity || item.level || '0', 10);
-              let count = item.count || 0;
-              if (count === 0 && level > 0) {
-                count = level === 1 ? 1 : level === 2 ? 4 : level === 3 ? 8 : 15;
+          const json = await res.json();
+          const html = json.contents;
+          if (html && html.includes('ContributionCalendar-day')) {
+            const tooltips = {};
+            const tooltipRegex = /for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/g;
+            let match;
+            while ((match = tooltipRegex.exec(html)) !== null) {
+              const forId = match[1];
+              const text = match[2].trim();
+              let count = 0;
+              if (!text.startsWith('No contribution')) {
+                const cMatch = text.match(/^([\d,]+)\s+contribution/i);
+                if (cMatch) count = parseInt(cMatch[1].replace(/,/g, ''), 10);
               }
-              return { date: item.date, count, level };
-            });
+              tooltips[forId] = count;
+            }
+
+            const genericTd = /<td\s+[^>]*data-date="([^"]+)"[^>]*>/g;
+            while ((match = genericTd.exec(html)) !== null) {
+              const fullTag = match[0];
+              const date = match[1];
+              const idMatch = fullTag.match(/id="([^"]+)"/);
+              const levelMatch = fullTag.match(/data-level="([^"]+)"/);
+              const id = idMatch ? idMatch[1] : '';
+              const level = levelMatch ? parseInt(levelMatch[1], 10) : 0;
+              const count = id && tooltips[id] !== undefined ? tooltips[id] : (level > 0 ? level : 0);
+              fetchedDays.push({ date, level, count });
+            }
           }
         }
       } catch (e) {
-        console.warn("Vercel contribution API failed:", e);
+        console.warn("Live HTML scrape proxy failed:", e);
       }
 
-      // Source 2: Jogruber API fallback
-      if (fetchedDays.length === 0) {
-        try {
-          const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}`);
-          if (res.ok) {
-            const data = await res.json();
-            if (data && data.contributions && data.contributions.length > 0) {
-              fetchedDays = data.contributions.map(item => ({
-                date: item.date,
-                count: item.count || 0,
-                level: item.level || 0
-              }));
-            }
-          }
-        } catch (e) {
-          console.warn("Jogruber contribution API failed:", e);
-        }
-      }
-
-      // Source 3: Official GitHub REST Events API Fallback (Guaranteed 100% CORS support)
+      // Secondary Live Source: Official GitHub REST Events API
       if (fetchedDays.length === 0) {
         try {
           const res = await fetch(`https://api.github.com/users/${username}/events?per_page=100`);
@@ -371,42 +404,32 @@ export default function App() {
                 }
               });
 
-              // Generate rolling 365 days window with mapped live event activity
-              const daysArr = [];
-              const today = new Date();
-              for (let i = 364; i >= 0; i--) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i);
-                const iso = d.toISOString().split('T')[0];
-                const count = eventMap[iso] || 0;
-                let level = 0;
-                if (count > 8) level = 4;
-                else if (count > 4) level = 3;
-                else if (count > 2) level = 2;
-                else if (count > 0) level = 1;
-
-                daysArr.push({ date: iso, count, level });
-              }
-              fetchedDays = daysArr;
+              // Merge events into real snapshot
+              fetchedDays = realGitHubSnapshot.map(d => {
+                if (eventMap[d.date] && eventMap[d.date] > d.count) {
+                  const count = eventMap[d.date];
+                  let level = 1;
+                  if (count > 8) level = 4;
+                  else if (count > 4) level = 3;
+                  else if (count > 2) level = 2;
+                  return { ...d, count, level };
+                }
+                return d;
+              });
             }
           }
         } catch (e) {
-          console.warn("GitHub events API fallback failed:", e);
+          console.warn("GitHub events fallback failed:", e);
         }
       }
 
-      if (isMounted) {
-        if (fetchedDays.length > 0) {
-          // Sort chronologically ascending
-          fetchedDays.sort((a, b) => a.date.localeCompare(b.date));
-          setRawContributions(fetchedDays);
+      if (isMounted && fetchedDays.length > 0) {
+        fetchedDays.sort((a, b) => a.date.localeCompare(b.date));
+        setRawContributions(fetchedDays);
 
-          // Extract unique years
-          const yearSet = new Set(fetchedDays.map(d => d.date.substring(0, 4)).filter(Boolean));
-          const yearsArr = Array.from(yearSet).sort((a, b) => Number(b) - Number(a));
-          setAvailableYears(['last', ...yearsArr]);
-        }
-        setContribLoading(false);
+        const yearSet = new Set(fetchedDays.map(d => d.date.substring(0, 4)).filter(Boolean));
+        const yearsArr = Array.from(yearSet).sort((a, b) => Number(b) - Number(a));
+        setAvailableYears(['last', ...yearsArr]);
       }
     }
 
