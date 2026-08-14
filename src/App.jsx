@@ -712,15 +712,15 @@ export default function App() {
   const projects = useMemo(() => [
     {
       icon: <TerminalIcon />,
-      title: "Homogenous",
+      title: "Homogenous (v3.7.0)",
       category: "cli",
-      desc: "A local-first, zero-overhead agentic CLI coding assistant built in TypeScript and Ink, featuring multi-provider local/cloud routing, standing plan mode, and interactive TUI.",
+      desc: "Enterprise-grade, local-first, zero-overhead agentic CLI coding assistant powered by multi-provider LLM inference, zero-trust security sandboxing, dynamic skills, and Model Context Protocol (MCP) tools.",
       features: [
-        "Dark Neon TUI Theme Engine: Responsive terminal interface using React 19 and Ink, featuring syntax-highlighted code blocks, state-reactive prompt container borders, and live spinners",
-        "Unified LLM Providers & Failover: Connects 11 different cloud and local inference models (Ollama, Anthropic, OpenAI, Groq, NVIDIA NIM, DeepSeek)",
-        "Standing Plan Mode & Safe Auto-Approve: Offers architectural proposals (/plan) and sandbox gates to review code changes before execution"
+        "Zero-Trust Security & Sandbox: Enforces strict execFileDirect execution safety, realpath symlink containment, IPv4-mapped IPv6 SSRF defense, and interactive confirmation gates",
+        "Scrollback-Preserved React Ink TUI: Built on React 19 and Ink 7 with syntax-highlighted code blocks, token-aware cell line wrapping, and scrollback buffer preservation",
+        "Multi-Provider LLM & MCP Integration: Native offline local runtimes (Ollama, LM Studio) and 9 frontier cloud providers + full MCP v1.29 SDK server tools & dynamic skill lifecycle"
       ],
-      tags: ["TypeScript", "Node.js", "CLI", "React (Ink)", "Ollama", "Anthropic", "MCP", "AI Agent"],
+      tags: ["TypeScript 5", "Node.js 20+", "CLI Agent", "React (Ink 7)", "Zero-Trust Sandbox", "Ollama", "LM Studio", "Anthropic", "MCP SDK", "Zod 4"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/homogenous", id: "link-homogenous" }
       ]
