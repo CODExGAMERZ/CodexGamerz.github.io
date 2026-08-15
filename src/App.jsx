@@ -712,15 +712,15 @@ export default function App() {
   const projects = useMemo(() => [
     {
       icon: <TerminalIcon />,
-      title: "Homogenous (v3.7.0)",
+      title: "Homogenous (v3.9.0)",
       category: "cli",
-      desc: "Enterprise-grade, local-first, zero-overhead agentic CLI coding assistant powered by multi-provider LLM inference, zero-trust security sandboxing, dynamic skills, and Model Context Protocol (MCP) tools.",
+      desc: "Enterprise-grade, local-first, zero-overhead agentic CLI coding assistant featuring a universal multi-format tool call parser, 30 FPS frame-throttled TUI, multi-phase autocomplete, zero-trust security sandboxing, and MCP tools.",
       features: [
-        "Zero-Trust Security & Sandbox: Enforces strict execFileDirect execution safety, realpath symlink containment, IPv4-mapped IPv6 SSRF defense, and interactive confirmation gates",
-        "Scrollback-Preserved React Ink TUI: Built on React 19 and Ink 7 with syntax-highlighted code blocks, token-aware cell line wrapping, and scrollback buffer preservation",
-        "Multi-Provider LLM & MCP Integration: Native offline local runtimes (Ollama, LM Studio) and 9 frontier cloud providers + full MCP v1.29 SDK server tools & dynamic skill lifecycle"
+        "Universal Tool Call Parser & Adaptive TPM: Intercepts inline Groq/Llama 3, Anthropic XML, OpenAI/Ollama XML, and Markdown JSON calls with automatic token-per-minute backoff budgeting",
+        "30 FPS Frame-Throttled TUI & Autocomplete: AST-memoized streaming at 30 FPS eliminating terminal redraw jitter, plus interactive Tab/Shift+Tab slash command & provider autocomplete engine",
+        "Zero-Trust Sandbox & Multi-Provider Engine: Enforces strict execFileDirect execution safety, realpath symlink containment, IPv4-mapped IPv6 SSRF defense, and connects Ollama/LM Studio + 9 cloud providers"
       ],
-      tags: ["TypeScript 5", "Node.js 20+", "CLI Agent", "React (Ink 7)", "Zero-Trust Sandbox", "Ollama", "LM Studio", "Anthropic", "MCP SDK", "Zod 4"],
+      tags: ["TypeScript 5", "Node.js 20+", "CLI Agent", "React (Ink 7)", "Universal Tool Parser", "Zero-Trust Sandbox", "Ollama", "LM Studio", "Anthropic", "Groq", "MCP SDK", "Zod 4"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/homogenous", id: "link-homogenous" }
       ]
