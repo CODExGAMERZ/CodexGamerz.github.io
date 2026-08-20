@@ -768,16 +768,16 @@ export default function App() {
   const projects = useMemo(() => [
     {
       icon: <TerminalIcon />,
-      title: "Homogenous (v3.9.0)",
+      title: "Homogenous (v4.0.3)",
       category: "cli",
       categories: ["cli", "ai", "devtool"],
-      desc: "Enterprise-grade, local-first agentic CLI coding assistant — unifying private offline LLMs (Ollama, LM Studio) and multi-cloud AI routing with zero-trust execution safety and Model Context Protocol (MCP v1.29) tools.",
+      desc: "Enterprise-grade, local-first agentic CLI coding assistant — unifying private offline LLMs and 11 multi-cloud inference engines with zero-leak AES-256-GCM security, 60 FPS terminal streaming, and Model Context Protocol (MCP v1.29) tools.",
       features: [
-        "Universal Multi-Format Tool Parser: Intercepts and executes function calls across all formats (Groq/Llama 3 inline, Anthropic XML, OpenAI/Ollama XML, and Markdown JSON) with adaptive TPM token budgeting",
-        "Zero-Trust Security & Sandbox: Strict execFileDirect command isolation, realpath symlink containment, IPv4-mapped IPv6 SSRF defense, and interactive user approval gates",
-        "30 FPS Terminal TUI & Autocomplete: AST-memoized streaming at 30 FPS eliminating terminal redraw jitter, with multi-phase Tab/Shift+Tab slash & provider autocomplete and multi-line clipboard paste"
+        "10 Autonomous Tools & Universal Parser: Executes workspace functions across all formats (Groq/Llama 3 inline, Anthropic XML, OpenAI/Ollama XML, and Markdown JSON) with plan-and-apply dual execution modes",
+        "Enterprise Zero-Leak Security Vault: Machine-bound AES-256-GCM credential encryption (0600 permissions), OS Keychain sync, execFileDirect command isolation, and IPv4-mapped IPv6 SSRF defense",
+        "Reactive 60 FPS Terminal TUI: AST-memoized live word streaming at 60 FPS eliminating redraw jitter, non-blocking cursor navigation, multi-phase Tab autocomplete, and multi-line clipboard pasting"
       ],
-      tags: ["TypeScript 5", "Node.js 20+", "CLI Agent", "React (Ink 7)", "Universal Tool Parser", "Zero-Trust Sandbox", "Ollama", "LM Studio", "Anthropic", "Groq", "MCP SDK", "Zod 4"],
+      tags: ["TypeScript 5", "Node.js 20+", "React (Ink 7)", "CLI Agent", "NVIDIA NIM", "Ollama", "LM Studio", "Anthropic", "Groq", "DeepSeek", "MCP SDK", "AES-256-GCM"],
       links: [
         { label: "Source Code", href: "https://github.com/CODExGAMERZ/homogenous", id: "link-homogenous" }
       ]
