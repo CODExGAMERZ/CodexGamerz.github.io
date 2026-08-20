@@ -544,7 +544,7 @@ export default function App() {
   const [activities, setActivities] = useState(defaultActivities);
 
   // Live GitHub Metrics State
-  const [gitStats, setGitStats] = useState({ repos: 25, followers: 5, following: 4 });
+  const [gitStats, setGitStats] = useState({ repos: 25, followers: 9, following: 4 });
 
   // Fetch GitHub User Info with Auto-Polling
   useEffect(() => {
