@@ -341,7 +341,7 @@ export default function App() {
   const [contribLoading, setContribLoading] = useState(false);
   const [hoveredDay, setHoveredDay] = useState(null);
 
-  // Fetch Live GitHub Contribution Data via CORS Proxy for Real-Time Sync
+  // Fetch Live GitHub Contribution Data with Real-Time Auto-Polling
   useEffect(() => {
     let isMounted = true;
 
@@ -349,50 +349,71 @@ export default function App() {
       const username = 'CODExGAMERZ';
       let fetchedDays = [];
 
-      // Primary Live Source: Parse real GitHub profile HTML via AllOrigins CORS proxy
+      // Primary High-Reliability Source: GitHub Contributions API (structured & live)
       try {
-        const targetUrl = `https://github.com/users/${username}/contributions`;
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
-        const res = await fetch(proxyUrl);
+        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?t=${Date.now()}`);
         if (res.ok) {
-          const json = await res.json();
-          const html = json.contents;
-          if (html && html.includes('ContributionCalendar-day')) {
-            const tooltips = {};
-            const tooltipRegex = /for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/g;
-            let match;
-            while ((match = tooltipRegex.exec(html)) !== null) {
-              const forId = match[1];
-              const text = match[2].trim();
-              let count = 0;
-              if (!text.startsWith('No contribution')) {
-                const cMatch = text.match(/^([\d,]+)\s+contribution/i);
-                if (cMatch) count = parseInt(cMatch[1].replace(/,/g, ''), 10);
-              }
-              tooltips[forId] = count;
-            }
-
-            const genericTd = /<td\s+[^>]*data-date="([^"]+)"[^>]*>/g;
-            while ((match = genericTd.exec(html)) !== null) {
-              const fullTag = match[0];
-              const date = match[1];
-              const idMatch = fullTag.match(/id="([^"]+)"/);
-              const levelMatch = fullTag.match(/data-level="([^"]+)"/);
-              const id = idMatch ? idMatch[1] : '';
-              const level = levelMatch ? parseInt(levelMatch[1], 10) : 0;
-              const count = id && tooltips[id] !== undefined ? tooltips[id] : (level > 0 ? level : 0);
-              fetchedDays.push({ date, level, count });
-            }
+          const data = await res.json();
+          if (data && Array.isArray(data.contributions) && data.contributions.length > 0) {
+            fetchedDays = data.contributions
+              .filter(d => d.date)
+              .map(d => ({
+                date: d.date,
+                count: Number(d.count) || 0,
+                level: Number(d.level) || 0
+              }));
           }
         }
       } catch (e) {
-        console.warn("Live HTML scrape proxy failed:", e);
+        console.warn("Primary contributions API failed, trying fallback:", e);
       }
 
-      // Secondary Live Source: Official GitHub REST Events API
+      // Secondary Live Source: Parse real GitHub profile HTML via AllOrigins CORS proxy
       if (fetchedDays.length === 0) {
         try {
-          const res = await fetch(`https://api.github.com/users/${username}/events?per_page=100`);
+          const targetUrl = `https://github.com/users/${username}/contributions`;
+          const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+          const res = await fetch(proxyUrl);
+          if (res.ok) {
+            const json = await res.json();
+            const html = json.contents;
+            if (html && html.includes('ContributionCalendar-day')) {
+              const tooltips = {};
+              const tooltipRegex = /for="([^"]+)"[^>]*>([^<]+)<\/tool-tip>/g;
+              let match;
+              while ((match = tooltipRegex.exec(html)) !== null) {
+                const forId = match[1];
+                const text = match[2].trim();
+                let count = 0;
+                if (!text.startsWith('No contribution')) {
+                  const cMatch = text.match(/^([\d,]+)\s+contribution/i);
+                  if (cMatch) count = parseInt(cMatch[1].replace(/,/g, ''), 10);
+                }
+                tooltips[forId] = count;
+              }
+
+              const genericTd = /<td\s+[^>]*data-date="([^"]+)"[^>]*>/g;
+              while ((match = genericTd.exec(html)) !== null) {
+                const fullTag = match[0];
+                const date = match[1];
+                const idMatch = fullTag.match(/id="([^"]+)"/);
+                const levelMatch = fullTag.match(/data-level="([^"]+)"/);
+                const id = idMatch ? idMatch[1] : '';
+                const level = levelMatch ? parseInt(levelMatch[1], 10) : 0;
+                const count = id && tooltips[id] !== undefined ? tooltips[id] : (level > 0 ? level : 0);
+                fetchedDays.push({ date, level, count });
+              }
+            }
+          }
+        } catch (e) {
+          console.warn("Live HTML scrape proxy failed:", e);
+        }
+      }
+
+      // Tertiary Live Source: Official GitHub REST Events API
+      if (fetchedDays.length === 0) {
+        try {
+          const res = await fetch(`https://api.github.com/users/${username}/events?per_page=100&t=${Date.now()}`);
           if (res.ok) {
             const events = await res.json();
             if (Array.isArray(events) && events.length > 0) {
@@ -434,7 +455,12 @@ export default function App() {
     }
 
     loadContributions();
-    return () => { isMounted = false; };
+    const interval = setInterval(loadContributions, 60000); // 60s real-time auto sync
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   // Compute Grid & Metrics based on rawContributions and selectedYear
@@ -447,16 +473,22 @@ export default function App() {
       };
     }
 
+    const todayStr = new Date().toISOString().split('T')[0];
+    const pastAndPresentDays = rawContributions.filter(d => d.date <= todayStr);
+
     let targetDays = [];
     if (selectedYear === 'last') {
-      // Last 365 days
-      targetDays = rawContributions.slice(-365);
+      // Rolling last 365 days up to today
+      targetDays = pastAndPresentDays.length >= 365 ? pastAndPresentDays.slice(-365) : rawContributions.slice(-365);
     } else {
-      targetDays = rawContributions.filter(d => d.date.startsWith(selectedYear));
+      targetDays = rawContributions.filter(d => d.date.startsWith(selectedYear) && d.date <= todayStr);
+      if (targetDays.length === 0) {
+        targetDays = rawContributions.filter(d => d.date.startsWith(selectedYear));
+      }
     }
 
     if (targetDays.length === 0) {
-      targetDays = rawContributions.slice(-365);
+      targetDays = pastAndPresentDays.slice(-365);
     }
 
     const totalCount = targetDays.reduce((acc, d) => acc + (d.count || 0), 0);
@@ -514,25 +546,38 @@ export default function App() {
   // Live GitHub Metrics State
   const [gitStats, setGitStats] = useState({ repos: 25, followers: 5, following: 4 });
 
-  // Fetch GitHub User Info
+  // Fetch GitHub User Info with Auto-Polling
   useEffect(() => {
-    fetch('https://api.github.com/users/CODExGAMERZ')
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.public_repos !== undefined) {
-          setGitStats({
-            repos: data.public_repos,
-            followers: data.followers,
-            following: data.following
-          });
-        }
+    let isMounted = true;
+    const fetchUserStats = () => {
+      fetch(`https://api.github.com/users/CODExGAMERZ?t=${Date.now()}`, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
       })
-      .catch(err => console.error("Error fetching stats:", err));
+        .then(res => res.json())
+        .then(data => {
+          if (isMounted && data && data.public_repos !== undefined) {
+            setGitStats({
+              repos: data.public_repos,
+              followers: data.followers,
+              following: data.following
+            });
+          }
+        })
+        .catch(err => console.error("Error fetching stats:", err));
+    };
+
+    fetchUserStats();
+    const interval = setInterval(fetchUserStats, 60000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
-
-  // Fetch and Parse Latest Activities
+  // Fetch and Parse Latest Activities with Auto-Polling
   useEffect(() => {
+    let isMounted = true;
+
     const parseGitHubEvents = (eventsList) => {
       const parsed = [];
       const formatTime = (isoString) => {
@@ -643,17 +688,28 @@ export default function App() {
       return parsed;
     };
 
-    fetch('https://api.github.com/users/CODExGAMERZ/events')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          const parsed = parseGitHubEvents(data);
-          if (parsed.length > 0) {
-            setActivities(parsed);
-          }
-        }
+    const fetchEvents = () => {
+      fetch(`https://api.github.com/users/CODExGAMERZ/events?per_page=30&t=${Date.now()}`, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' }
       })
-      .catch(err => console.error("Error fetching events:", err));
+        .then(res => res.json())
+        .then(data => {
+          if (isMounted && Array.isArray(data)) {
+            const parsed = parseGitHubEvents(data);
+            if (parsed.length > 0) {
+              setActivities(parsed);
+            }
+          }
+        })
+        .catch(err => console.error("Error fetching events:", err));
+    };
+
+    fetchEvents();
+    const interval = setInterval(fetchEvents, 60000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   // Active section scroll tracking
@@ -714,6 +770,7 @@ export default function App() {
       icon: <TerminalIcon />,
       title: "Homogenous (v3.9.0)",
       category: "cli",
+      categories: ["cli", "ai", "devtool"],
       desc: "Enterprise-grade, local-first agentic CLI coding assistant — unifying private offline LLMs (Ollama, LM Studio) and multi-cloud AI routing with zero-trust execution safety and Model Context Protocol (MCP v1.29) tools.",
       features: [
         "Universal Multi-Format Tool Parser: Intercepts and executes function calls across all formats (Groq/Llama 3 inline, Anthropic XML, OpenAI/Ollama XML, and Markdown JSON) with adaptive TPM token budgeting",
@@ -1067,7 +1124,9 @@ export default function App() {
 
   const filteredProjects = useMemo(() => {
     return projects.filter(project => {
-      const matchesCategory = selectedCategory === 'all' || project.category === selectedCategory;
+      const matchesCategory = selectedCategory === 'all' || 
+                              project.category === selectedCategory ||
+                              (Array.isArray(project.categories) && project.categories.includes(selectedCategory));
       const matchesSearch = project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             project.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -1140,14 +1199,14 @@ export default function App() {
     },
     {
       title: 'AI / Deep Learning',
-      pills: ['PyTorch', 'TensorFlow / Keras', 'FAISS', 'Sentence Transformers', 'NLP', 'Ollama', 'Tokenizers']
+      pills: ['PyTorch', 'TensorFlow / Keras', 'FAISS', 'LangGraph', 'Sentence Transformers', 'NLP', 'Ollama', 'LM Studio', 'Anthropic API', 'Groq API', 'Tokenizers']
     },
     {
       title: 'Tools & Infra',
       pills: [
-        'Git', 'Node.js', 'WebAssembly', 'Tree-sitter', 'Android', 'Jetpack Compose', 'Supabase',
-        'React', 'Vite', 'GitHub Pages', 'Flask', 'FastAPI', 'PyWebView', 'WebSockets', 'MinGW / GCC',
-        'cppcheck', 'flake8', 'REST APIs'
+        'Git', 'Node.js', 'MCP SDK', 'React (Ink)', 'WebAssembly', 'Tree-sitter', 'Android', 'Jetpack Compose',
+        'Supabase', 'React', 'Vite', 'GitHub Pages', 'FastAPI', 'Flask', 'PyWebView', 'WebSockets',
+        'MinGW / GCC', 'cppcheck', 'flake8', 'REST APIs'
       ]
     }
   ];
@@ -1400,9 +1459,10 @@ export default function App() {
                   <p className="text-neutral-400 ml-4">name: <span className="text-yellow-300">"Aryan"</span>,</p>
                   <p className="text-neutral-400 ml-4">handle: <span className="text-yellow-300">"CODExGAMERZ"</span>,</p>
                   <p className="text-neutral-400 ml-4">role: <span className="text-yellow-300">"AI Engineer & Systems Developer"</span>,</p>
+                  <p className="text-neutral-400 ml-4">flagship: <span className="text-yellow-300">"Homogenous (Local AI Agent CLI)"</span>,</p>
                   <p className="text-neutral-400 ml-4">location: <span className="text-yellow-300">"India"</span>,</p>
-                  <p className="text-neutral-400 ml-4">specialties: [<span className="text-yellow-300">"Local-First AI"</span>, <span className="text-yellow-300">"Dev Tooling"</span>, <span className="text-yellow-300">"Compilers"</span>],</p>
-                  <p className="text-neutral-400 ml-4">languages: [<span className="text-yellow-300">"Python"</span>, <span className="text-yellow-300">"TypeScript"</span>, <span className="text-yellow-300">"C"</span>, <span className="text-yellow-300">"Kotlin"</span>]</p>
+                  <p className="text-neutral-400 ml-4">specialties: [<span className="text-yellow-300">"Agentic AI"</span>, <span className="text-yellow-300">"Local-First LLMs"</span>, <span className="text-yellow-300">"Zero-Trust Sandboxing"</span>],</p>
+                  <p className="text-neutral-400 ml-4">languages: [<span className="text-yellow-300">"TypeScript"</span>, <span className="text-yellow-300">"Python"</span>, <span className="text-yellow-300">"C"</span>, <span className="text-yellow-300">"Kotlin"</span>]</p>
                   <p className="text-neutral-400">&#125;;</p>
                   <p className="text-green-400 mt-3">$ <span className="terminal-cursor h-4 w-1.5"></span></p>
                 </div>

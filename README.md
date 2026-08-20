@@ -46,7 +46,7 @@ CodexGamerz.github.io/
 
 1. **Hero** — Animated gradient name, typing role subtitle, availability badge, live GitHub followers/repos stats, and interactive profile card
 2. **About** — Mono terminal profile code mock + dynamically calculated stat counters (Total Built, AI/ML Systems, Live Demos)
-3. **Projects** — 22 featured builds displayed in a clean, categorized, and searchable responsive grid
+3. **Projects** — 23 featured builds displayed in a clean, categorized, and searchable responsive grid
 4. **Tech Stack** — Categorized languages, AI/DL frameworks, and developer tools in hoverable pill layouts
 5. **Contribution Graph** — Date-padded activity grid displaying live-aligned code contributions
 6. **Activity Timeline** — Vertical timeline list of recent public GitHub events
@@ -68,28 +68,29 @@ CodexGamerz.github.io/
 
 | # | Project | Type | Links |
 |---|---------|------|-------|
-| 1 | **LogicScope** — VS Code extension rendering real-time DSA recursion trees, Mermaid.js flowcharts, and UML class hierarchies | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LogicScope) · [Demo](https://logicscope.vercel.app/) |
-| 2 | **B.Tech-AI-Tutor-7B** — Fine-tuned academic study tutor built on top of Qwen-2.5-7B-Instruct, optimized for Colab training & local GGUF running | AI / ML | [Repo](https://github.com/CODExGAMERZ/B.Tech-AI-Tutor-7B) |
-| 3 | **LinguistReport** — Advanced NLP linguistic text profiler (human vs. AI text) and publication-quality Word (.docx) report generator | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LinguistReport) |
-| 4 | **scaffold-agent-skill** — Interactive CLI scaffolding utility to generate AI agent skills, plugins, and server stubs for Claude, OpenAI, and Gemini | Dev Tool / CLI | [Repo](https://github.com/CODExGAMERZ/create-agent-skill) |
-| 5 | **DataMind AI** — Client-first Android app for research paper summarization and gamified stats sync using Jetpack Compose and Supabase | AI / ML | [Repo](https://github.com/CODExGAMERZ/DataMind-ai) |
-| 6 | **SentinelRAG** — Local-first hybrid RAG CLI and Python engine indexing local Markdown/PDF files with LangGraph orchestration and Qdrant | AI / ML | [Repo](https://github.com/CODExGAMERZ/SentinelRAG) |
-| 7 | **JarvisRAG** — Local-first RAG application with FastAPI backend, FAISS vector store, local embeddings, and a stunning browser dashboard | AI / ML | [Repo](https://github.com/CODExGAMERZ/JarvisRAG) |
-| 8 | **DataPrism** — Offline VS Code extension for dataset exploration & quality profiling | Dev Tool | [Repo](https://github.com/CODExGAMERZ/DataPrism) · [Demo](https://dataprismext.vercel.app/) |
-| 9 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) · [Demo](https://modelsight.vercel.app/) |
-| 10 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
-| 11 | **Code Autocomplete LLM** — Multilingual GPT decoder (Python/C/Java) with GPU support | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
-| 12 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
-| 13 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
-| 14 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
-| 15 | **KeyCode** — Custom VS Code fork built for Windows with local Ollama autocomplete | Dev Tool | [Repo](https://github.com/CODExGAMERZ/KeyCode) |
-| 16 | **VoltC** — Native desktop C/C++ IDE built for Ubuntu Linux | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) |
-| 17 | **VoltC Showcase Website** — Obsidian glassmorphism landing page with in-browser IDE simulator | Web App | [Repo](https://github.com/CODExGAMERZ/VoltC-Website) · [Demo](https://volt-c.vercel.app/) |
-| 18 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
-| 19 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
-| 20 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
-| 21 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
-| 22 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
+| 1 | **Homogenous (v3.9.0)** — Enterprise-grade local-first agentic CLI coding assistant with zero-trust execution sandbox, universal tool parser, and MCP v1.29 SDK support | CLI / AI | [Repo](https://github.com/CODExGAMERZ/homogenous) |
+| 2 | **LogicScope** — VS Code extension rendering real-time DSA recursion trees, Mermaid.js flowcharts, and UML class hierarchies | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LogicScope) · [Demo](https://logicscope.vercel.app/) |
+| 3 | **B.Tech-AI-Tutor-7B** — Fine-tuned academic study tutor built on top of Qwen-2.5-7B-Instruct, optimized for Colab training & local GGUF running | AI / ML | [Repo](https://github.com/CODExGAMERZ/B.Tech-AI-Tutor-7B) |
+| 4 | **LinguistReport** — Advanced NLP linguistic text profiler (human vs. AI text) and publication-quality Word (.docx) report generator | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LinguistReport) |
+| 5 | **scaffold-agent-skill** — Interactive CLI scaffolding utility to generate AI agent skills, plugins, and server stubs for Claude, OpenAI, and Gemini | Dev Tool / CLI | [Repo](https://github.com/CODExGAMERZ/create-agent-skill) |
+| 6 | **DataMind AI** — Client-first Android app for research paper summarization and gamified stats sync using Jetpack Compose and Supabase | AI / ML | [Repo](https://github.com/CODExGAMERZ/DataMind-ai) |
+| 7 | **SentinelRAG** — Local-first hybrid RAG CLI and Python engine indexing local Markdown/PDF files with LangGraph orchestration and Qdrant | AI / ML | [Repo](https://github.com/CODExGAMERZ/SentinelRAG) |
+| 8 | **JarvisRAG** — Local-first RAG application with FastAPI backend, FAISS vector store, local embeddings, and a stunning browser dashboard | AI / ML | [Repo](https://github.com/CODExGAMERZ/JarvisRAG) |
+| 9 | **DataPrism** — Offline VS Code extension for dataset exploration & quality profiling | Dev Tool | [Repo](https://github.com/CODExGAMERZ/DataPrism) · [Demo](https://dataprismext.vercel.app/) |
+| 10 | **ModelSight** — Local-first ML training monitor & VS Code dashboard | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Model-Sight) · [Demo](https://modelsight.vercel.app/) |
+| 11 | **Hybrid AI Chatbot** — Semantic memory + self-learning pipeline | AI / ML | [Repo](https://github.com/CODExGAMERZ/chatbot-ai) |
+| 12 | **Code Autocomplete LLM** — Multilingual GPT decoder (Python/C/Java) with GPU support | AI / ML | [Repo](https://github.com/CODExGAMERZ/Code-AutoComplete-LLM) |
+| 13 | **llm-advisor.dev** — LLM hardware compatibility calculator | Web App | [Repo](https://github.com/CODExGAMERZ/llm-advisor) · [Demo](https://llm-advisor-ai.vercel.app/) |
+| 14 | **C-Code-Assistant** — Local AI-powered C programming IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/C-Code-Assistant) |
+| 15 | **Python-Code-Assistant** — Local AI-powered Python IDE | Dev Tool | [Repo](https://github.com/CODExGAMERZ/Python-Code-Assistant) |
+| 16 | **KeyCode** — Custom VS Code fork built for Windows with local Ollama autocomplete | Dev Tool | [Repo](https://github.com/CODExGAMERZ/KeyCode) |
+| 17 | **VoltC** — Native desktop C/C++ IDE built for Ubuntu Linux | Dev Tool | [Repo](https://github.com/CODExGAMERZ/VoltC) |
+| 18 | **VoltC Showcase Website** — Obsidian glassmorphism landing page with in-browser IDE simulator | Web App | [Repo](https://github.com/CODExGAMERZ/VoltC-Website) · [Demo](https://volt-c.vercel.app/) |
+| 19 | **Kryptonix** — Glassmorphism crypto dashboard | Web App | [Repo](https://github.com/CODExGAMERZ/crypto-website) · [Demo](https://kryptonix-tv.vercel.app/) |
+| 20 | **FocusFlow** — Task stopwatch & analytics | Web App | [Repo](https://github.com/CODExGAMERZ/focusflow) · [Demo](https://focusflow-tv.vercel.app/) |
+| 21 | **WebNotes** — Programming knowledge hub | Web App | [Repo](https://github.com/CODExGAMERZ/WebNotes) · [Demo](https://webynotes.netlify.app/) |
+| 22 | **CineFinder** — Movie discovery engine | Web App | [Repo](https://github.com/CODExGAMERZ/Movie) |
+| 23 | **QR Code Generator** — CLI with wizard & preview | CLI | [Repo](https://github.com/CODExGAMERZ/QrCODE-GENRATOR) |
 
 ---
 
