@@ -68,7 +68,7 @@ CodexGamerz.github.io/
 
 | # | Project | Type | Links |
 |---|---------|------|-------|
-| 1 | **Homogenous (v4.0.3)** — Enterprise-grade local-first agentic CLI coding assistant with zero-trust execution sandbox, universal tool parser, and MCP v1.29 SDK support | CLI / AI | [Repo](https://github.com/CODExGAMERZ/homogenous) |
+| 1 | **Homogenous (v4.2.0)** — Enterprise-grade, local-first agentic CLI coding assistant uniting offline LLMs & 11 cloud inference engines with zero-leak AES-256-GCM security, 10 autonomous tools, 60 FPS streaming, and MCP v1.29 SDK | CLI / AI | [Repo](https://github.com/CODExGAMERZ/homogenous) |
 | 2 | **LogicScope** — VS Code extension rendering real-time DSA recursion trees, Mermaid.js flowcharts, and UML class hierarchies | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LogicScope) · [Demo](https://logicscope.vercel.app/) |
 | 3 | **B.Tech-AI-Tutor-7B** — Fine-tuned academic study tutor built on top of Qwen-2.5-7B-Instruct, optimized for Colab training & local GGUF running | AI / ML | [Repo](https://github.com/CODExGAMERZ/B.Tech-AI-Tutor-7B) |
 | 4 | **LinguistReport** — Advanced NLP linguistic text profiler (human vs. AI text) and publication-quality Word (.docx) report generator | Dev Tool | [Repo](https://github.com/CODExGAMERZ/LinguistReport) |
