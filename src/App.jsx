@@ -768,7 +768,7 @@ export default function App() {
   const projects = useMemo(() => [
     {
       icon: <TerminalIcon />,
-      title: "Homogenous (v4.2.0)",
+      title: "Homogenous (v4.2.7)",
       category: "cli",
       categories: ["cli", "ai", "devtool"],
       desc: "Enterprise-grade, local-first agentic CLI coding assistant — unifying private offline LLMs and 11 multi-cloud inference engines with zero-leak AES-256-GCM security, 60 FPS terminal streaming, and Model Context Protocol (MCP v1.29) tools.",
